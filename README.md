@@ -1,5 +1,6 @@
 # Project_C_Game
-Mentor: Thien Duc
+Mentor: Thien Duc 
+
 Team members:
 - Nhut Duy
 - Hoang Huy
