@@ -1,0 +1,53 @@
+
+#sidebarBackground{
+    background-color: #ece8e9;
+}
+#calendarSide{
+    background-color: white;
+}
+label{
+    color: #727272;
+    font-size: 20px;
+    font-weight: bold;
+}
+#loginLabel{
+    color: #6b6b6b;
+    font-size: 20px;
+}
+#createEventButton{
+    border-width: 2px;
+    border: solid 2px #3584E4;
+    color: #3584E4;
+    font-size: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+#createEventButton:hover{
+    background-color: #d45f4a;
+    color: #d45f4a;
+    font-size: 25px;
+}
+
+
+#importantCheck:checked {
+    color: white;
+    background: #d45f4a;
+}
+#workCheck:checked{
+    color: white;
+    background: #f5c445;
+}
+#reminderCheck:checked{
+    color: white;
+    background: #4facf2;
+}
+#taskCheck:checked{
+    color: white;
+    background: #b05fd1;
+}
+
+#boxFrame{
+    border: solid 1px #dbdbdb;
+}
