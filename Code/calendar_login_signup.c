@@ -4,7 +4,10 @@
 #include <string.h>
 #include "../header/Login.h"
 #include "../header/LunarCalendar.h"
-
+//#include "../header/Layout.h"
+//#include "calendarLayout.c"
+//variable for ID
+User user = {};
 // Login
 GtkWidget *windowLogin;
 GtkEntry *userEntryLogin;
@@ -14,6 +17,7 @@ GtkWidget *lbPassCorLogin;
 // Admin
 GtkWidget *windowLoginAdmin;
 
+GtkWidget *dialogSuccess;
 // Sign Up
 GtkWidget *windowSign;
 GtkEntry *nameEntrySign;
@@ -61,6 +65,7 @@ void showSignupWindow(int argc, char *argv[])
     userEntrySign = GTK_ENTRY(gtk_builder_get_object(builderSign, "userEntry"));
     passEntrySign = GTK_ENTRY(gtk_builder_get_object(builderSign, "passEntry"));
     confPassEntrySign = GTK_ENTRY(gtk_builder_get_object(builderSign, "confPassEntry"));
+    dialogSuccess = GTK_WIDGET(gtk_builder_get_object(builderSign, "dialogSuccess"));
     
     lbNameCor = GTK_WIDGET(gtk_builder_get_object(builderSign, "lbNameCor"));
     lbUserCor = GTK_WIDGET(gtk_builder_get_object(builderSign, "lbUserCor"));
@@ -92,11 +97,8 @@ void showLoginAdminWindow(int argc, char *argv[])
     gtk_widget_show(windowLoginAdmin);
     gtk_main();
 }
-/*int main(int argc, char *argv[])
-{
-    showLoginWindow(argc, argv);
-    return 0;
-}*/
+
+
 
 // LOGIN WINDOW
 // call to change to Sign in window
@@ -107,7 +109,7 @@ G_MODULE_EXPORT void onClicked_sign_change(int argc, char *argv[])
 }
 
 // called when click login
-G_MODULE_EXPORT void onClicked_Login()
+G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
 {
 	// variable to save GTK Entry
 	char userTxtLogin[128];
@@ -134,13 +136,18 @@ G_MODULE_EXPORT void onClicked_Login()
     else {
         int status = userLogin(userTxtLogin, passTxtLogin);
 
-        if (status == 0) {
+        if (status == -1) {
             gtk_label_set_text(GTK_LABEL(lbUserCorLogin), "*have not account");
-        } else if (status == -1) {
+        } else if (status == 0) {
             //Do something if there is such account but wrong password
             gtk_label_set_text(GTK_LABEL(lbPassCorLogin), "*wrong password");
         } else {
             //Do something if there is such account and right password
+            getUserByUsername(userTxtLogin, &user);
+            gtk_widget_destroy(GTK_WIDGET(windowLogin));
+            //gtk_widget_destroy(GTK_WIDGET(windowCalendar));
+            //showCalendarWindow(argc, argv);
+            
         }
     }
 }
@@ -180,12 +187,12 @@ G_MODULE_EXPORT void onClicked_Signup()
     sprintf(userTxtSign, "%s", gtk_entry_get_text(userEntrySign));
     sprintf(passTxtSign, "%s", gtk_entry_get_text(passEntrySign));
     sprintf(confPassTxtSign, "%s", gtk_entry_get_text(confPassEntrySign));
-
+    
     //Check validation
     bool isValidNameTxt = isValidName(nameTxtSign);
     bool isValidUsernameTxt = isValidUsername(userTxtSign);
     bool isValidPasswordTxt = isValidPassword(passTxtSign);
-
+    bool isUserNameExist = isUserUsernameExisted(userTxtSign);
     if (!isValidNameTxt)
 	{
 		//Do something if name is wrong
@@ -195,6 +202,12 @@ G_MODULE_EXPORT void onClicked_Signup()
     {
     	//Do something if username is wrong
     	gtk_label_set_text(GTK_LABEL(lbUserCor), "*[a-z], [A-Z], number, size < 20");
+	}
+	else if (isUserNameExist)
+    {
+    	//Do something if username is wrong
+    	gtk_label_set_text(GTK_LABEL(lbUserCor), "*This username is already existed");
+    	g_print("true");
 	}    
     else if (!isValidPasswordTxt)
     {
@@ -208,19 +221,15 @@ G_MODULE_EXPORT void onClicked_Signup()
         	gtk_label_set_text(GTK_LABEL(lbConfCor), "*not same with confirm password");
 		}   
         else {
-            User user = {};
-
             user.name = nameTxtSign;
             user.username = userTxtSign;
             user.password = passTxtSign;
-
+            
             if (registerNewAccount(user) == 1){
             	//Do something if register successfully
             	gtk_widget_destroy(GTK_WIDGET(windowSign));
-			}   
-            else{
-            	//Do something id register failed
-			}   
+            	gtk_widget_show_all(dialogSuccess);
+			}    
         }
     }
 
@@ -253,3 +262,7 @@ G_MODULE_EXPORT void onClicked_Admin(int argc, char *argv[])
 	showLoginAdminWindow(argc, argv);
 }
 
+G_MODULE_EXPORT void on_btnOk_clicked(int argc, char *argv[]){
+	gtk_widget_destroy(GTK_WIDGET(dialogSuccess));
+	showLoginWindow(argc, argv);
+}

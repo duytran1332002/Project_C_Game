@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name ID -->
+      <column type="&lt; define a new column &gt;"/>
+    </columns>
+  </object>
+  <object class="GtkWindow">
+    <property name="can-focus">False</property>
+    <property name="default-width">700</property>
+    <property name="default-height">500</property>
+    <child>
+      <object class="GtkFixed">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="width-request">660</property>
+            <property name="height-request">501</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkViewport">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkTreeView">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="model">liststore1</property>
+                    <property name="tooltip-column">7</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">15</property>
+            <property name="y">11</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

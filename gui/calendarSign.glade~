@@ -2,10 +2,11 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkDialog">
+  <object class="GtkDialog" id="dialogSuccess">
     <property name="can-focus">False</property>
-    <property name="default-width">500</property>
-    <property name="default-height">200</property>
+    <property name="resizable">False</property>
+    <property name="default-width">430</property>
+    <property name="default-height">190</property>
     <property name="type-hint">dialog</property>
     <child internal-child="vbox">
       <object class="GtkBox">
@@ -17,10 +18,11 @@
             <property name="can-focus">False</property>
             <property name="layout-style">end</property>
             <child>
-              <object class="GtkButton">
+              <object class="GtkButton" id="btnOk">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
+                <signal name="clicked" handler="on_btnOk_clicked" swapped="no"/>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
@@ -29,7 +31,7 @@
                     <property name="width-chars">7</property>
                     <property name="max-width-chars">8</property>
                     <attributes>
-                      <attribute name="font-desc" value="Segoe UI Historic 12"/>
+                      <attribute name="font-desc" value="Segoe UI Black, Heavy 12"/>
                       <attribute name="foreground" value="#1c1c7171d8d8"/>
                     </attributes>
                   </object>
@@ -50,10 +52,37 @@
         </child>
         <child>
           <object class="GtkFixed">
-            <property name="width-request">200</property>
-            <property name="height-request">200</property>
+            <property name="width-request">32</property>
+            <property name="height-request">74</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="width-request">264</property>
+                <property name="height-request">80</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Succeessfull! 
+Thanks for using app</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold Oblique 15"/>
+                  <attribute name="foreground" value="#35358484e4e4"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="x">144</property>
+                <property name="y">21</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage">
+                <property name="width-request">128</property>
+                <property name="height-request">128</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="pixbuf">target.png</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -68,7 +97,7 @@
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Signup window</property>
     <property name="default-width">500</property>
-    <property name="default-height">700</property>
+    <property name="default-height">650</property>
     <signal name="destroy" handler="on_window_sign_destroy" swapped="no"/>
     <child>
       <object class="GtkFixed">
@@ -114,8 +143,8 @@
             <signal name="clicked" handler="onClicked_Signup" swapped="no"/>
           </object>
           <packing>
-            <property name="x">200</property>
-            <property name="y">655</property>
+            <property name="x">199</property>
+            <property name="y">589</property>
           </packing>
         </child>
         <child>
@@ -130,8 +159,8 @@
             </attributes>
           </object>
           <packing>
-            <property name="x">100</property>
-            <property name="y">690</property>
+            <property name="x">98</property>
+            <property name="y">629</property>
           </packing>
         </child>
         <child>
@@ -145,14 +174,14 @@
             <signal name="clicked" handler="onClicked_login_change" swapped="no"/>
           </object>
           <packing>
-            <property name="x">367</property>
-            <property name="y">707</property>
+            <property name="x">360</property>
+            <property name="y">646</property>
           </packing>
         </child>
         <child>
           <object class="GtkBox">
             <property name="width-request">330</property>
-            <property name="height-request">355</property>
+            <property name="height-request">302</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="orientation">vertical</property>
@@ -280,62 +309,6 @@
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="pixbuf">calendar.png</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="birthdayEntry">
-                    <property name="width-request">227</property>
-                    <property name="height-request">49</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="placeholder-text" translatable="yes">DD/MM/YYYY</property>
-                    <signal name="changed" handler="on_birthdayEntry_changed" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="lbBirthCor">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <attributes>
-                  <attribute name="foreground" value="#e0e01b1b2424"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox">
-                <property name="width-request">218</property>
-                <property name="height-request">51</property>
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="width-request">50</property>
-                    <property name="height-request">20</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="pixbuf">padlock .png</property>
                   </object>
                   <packing>
@@ -365,7 +338,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">6</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -379,7 +352,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">7</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child>
@@ -423,7 +396,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">8</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child>
@@ -437,7 +410,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">9</property>
+                <property name="position">7</property>
               </packing>
             </child>
           </object>

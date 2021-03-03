@@ -3,7 +3,8 @@
 #include <time.h>
 #include "solarLogic.c"
 #include "calendar_login_signup.c"
-#include "LunarCalendar.h"
+#include "../header/Login.h"
+#include "../header/LunarCalendar.h"
 int currentMonth;
 int currentYear;
 GtkWidget *windowCalendar;
@@ -13,6 +14,7 @@ GtkWidget *yearLblSmall;
 //GtkWidget *monthLbl;
 GtkWidget *monthLblSmall;
 GtkWidget *lbCurrentDate;
+GtkWidget *lbUserName;
 GtkWidget *solarDay[37];
 GtkWidget *solarSmallDay[37]; 
 GtkWidget *lunarDay[37];
@@ -88,11 +90,10 @@ static void makeCalendar()
         postDay++;
     }
 }
-
 void showCalendarWindow(int argc, char *argv[])
 {
-	
-    GtkBuilder *builderCalendar;
+	GtkBuilder *builderCalendar;
+    
     gtk_init(&argc, &argv);
     builderCalendar = gtk_builder_new();
     gtk_builder_add_from_file(builderCalendar, "CalendarlayoutYes.glade", NULL);
@@ -102,6 +103,9 @@ void showCalendarWindow(int argc, char *argv[])
     yearLblSmall = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "yearSmall"));
     monthLblSmall = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "monthSmall"));
     lbCurrentDate = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "lbCurrentDate"));
+    lbUserName = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "lbUserName"));
+    
+    // set text username label
     
     for (int i = 1; i <= 35; i++) {
         char ID[3];
@@ -159,7 +163,7 @@ void showCalendarWindow(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-    showCalendarWindow(argc, argv);
+	showCalendarWindow(argc, argv);
     return 0;
 }
 

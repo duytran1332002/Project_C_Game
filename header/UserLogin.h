@@ -1,5 +1,5 @@
-#ifndef LOGIC_H
-#define LOGIC_H
+#ifndef USER_LOGIN_H
+#define USER_LOGIN_H
 
 #include <stdio.h>
 #include <string.h>
@@ -7,7 +7,7 @@
 #include "LunarCalendar.h"
 #include "../model/UserModel.h"
 
-/*
+/**
  * Prototypes
  */
 // void parseDateOfBirth(char *dateString, Date *dateOfBirth);
@@ -19,28 +19,18 @@ int getLastUserID();
 bool isUserIDExisted(int id);
 bool isUserUsernameExisted(char *username);
 int insertUser(User user);
-bool isValidDateOfBirth(Date dateOfBirth);
+//bool isValidDateOfBirth(Date dateOfBirth);
 bool isValidName(char *name);
 bool isValidUsername(char *username);
 bool isValidPassword(char *password);
 int userLogin(char *username, char *password);
 int registerNewAccount(User user);
-void getAdminByID(int id, Admin *fetchedAdmin);
-void getAdminByUsername(char *username, Admin *fetchedAdmin);
-void getAdminByName(char *name, Admin *fetchedAdmin);
-int getLastAdminID();
-bool isAdminIDExisted(int id);
-bool isAdminUsername(char *username);
-int insertAdmin(Admin admin);
-int adminLogin(char *username, char *password);
 
 FILE *userDataFile;
-FILE *adminDataFile;
-const char ADMIN_FILE[] = "data/admins_data.dat";
-const char USER_FILE[] = "data/users_data.dat";
-int MAX_DAYS_OF_MONTH[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const char USER_FILE[] = "../data/users_data.dat";
+// int MAX_DAYS_OF_MONTH[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-/*
+/**
  * parseDateOfBirth:
  * Parse the date of birth from dateString with format dd/mm/yyyy.
  * Then store data to dateOfBirth.
@@ -63,7 +53,7 @@ int MAX_DAYS_OF_MONTH[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 //     dateOfBirth->year = (int) strtol(dateOfBirthTokens[2], &tempPointer, 10);
 // }
 
-/*
+/**
  * indexOf:
  * Return index of a character in the given string.
  */
@@ -73,7 +63,7 @@ int indexOf(char character, char *string) {
     return charPosition == NULL ? -1 : (int) (charPosition - string);
 }
 
-/*
+/**
  * getUserByID:
  * Search for User with the given id. Then get information and store into fetchedUser.
  * If not found, set User's information to default value (0 and NULL).
@@ -151,7 +141,7 @@ void getUserByID(int id, User *fetchedUser) {
     }
 }
 
-/*
+/**
  * getUserByID:
  * Search for User with the given name. Then gets information and stores into fetchedUser.
  * If not found, set User's information to default value (0 and NULL).
@@ -229,7 +219,7 @@ void getUserByName(char *givenName, User *fetchedUser) {
     }
 }
 
-/*
+/**
  * getUserByID:
  * Search for User with the given username. Then gets information and stores into fetchedUser.
  * If not found, set User's information to default value (0 and NULL).
@@ -307,7 +297,7 @@ void getUserByUsername(char *givenUsername, User *fetchedUser) {
     }
 }
 
-/*
+/**
  * getLastUserID:
  * Return the last User's ID in the file. If failed, return -1.
  */
@@ -343,8 +333,8 @@ int getLastUserID() {
     }
 }
 
-/*
- * isIDExisted:
+/**
+ * isUserIDExisted:
  * Check whether a User with the given ID exists.
  */
 bool isUserIDExisted(int id) {
@@ -384,8 +374,8 @@ bool isUserIDExisted(int id) {
     }
 }
 
-/*
- * isUsernameExisted:
+/**
+ * isUserUsernameExisted:
  * Check whether a User with the given name exists.
  */
 bool isUserUsernameExisted(char *username) {
@@ -431,7 +421,7 @@ bool isUserUsernameExisted(char *username) {
     }
 }
 
-/*
+/**
  * insertUser:
  * Append a User to the end of file. 
  * If insert successfully, return 1.
@@ -458,7 +448,7 @@ int insertUser(User user) {
     }
 }
 
-/*
+/**
  * isValidDateOfBirth:
  * Check whether the given date of birth is valid.
  */
@@ -477,7 +467,7 @@ int insertUser(User user) {
 //     return true;
 // }
 
-/*
+/**
  * isValidName:
  * Check whether the given name is valid.
  */
@@ -516,7 +506,7 @@ bool isValidName(char *name) {
     return true;
 }
 
-/*
+/**
  * isValidUsername:
  * Check whether the given username is valid.
  */
@@ -538,7 +528,7 @@ bool isValidUsername(char *username) {
     return true;
 }
 
-/*
+/**
  * isValidPassword:
  * Check whether the given password is valid.
  */
@@ -560,12 +550,8 @@ bool isValidPassword(char *password) {
     return true;
 }
 
-void modifyName(char *name) {
-
-}
-
-/*
- * login:
+/**
+ * userLogin:
  * Receive username and password.
  * If there is such account and right password, return 1.
  * If there is such account but wrong password, return 0.
@@ -584,7 +570,7 @@ int userLogin(char *givenUsername, char *givenPassword) {
     }
 }
 
-/*
+/**
  * registerNewAccount:
  * Receive and insert the given user to file.
  * If fail to insert, return 0.
@@ -593,307 +579,6 @@ int userLogin(char *givenUsername, char *givenPassword) {
 int registerNewAccount(User user) {
     if (insertUser(user) != 1) {
         return 0; 
-    } else {
-        return 1;
-    }
-}
-
-void getAdminByID(int id, Admin *fetchedAdmin) {
-    adminDataFile = fopen(ADMIN_FILE, "r");
-
-    fetchedAdmin->id = 0;
-    fetchedAdmin->name = NULL;
-    fetchedAdmin->username = NULL;
-    fetchedAdmin->password = NULL;
-
-    if (adminDataFile != NULL) {
-        char fetchedInformation[1000];
-
-        /*
-         * Loop to get every line in file
-         */
-        while (fgets(fetchedInformation, 1000, adminDataFile) != NULL) {
-            int endLineIndex = indexOf('\n', fetchedInformation);
-            fetchedInformation[endLineIndex] = '\0';
-            int i = 0, j = 0;
-            char *tempPointer;
-
-            /*
-             * Parse main tokens (id-name-username-password)
-             */
-            char *tokens[4];
-            char *token;
-            //Parse the first token
-            token = strtok(fetchedInformation, "-");
-            //Parse the next tokens
-            while (token != NULL) {
-                tokens[i] = token;
-                i++;
-                token = strtok(NULL, "-");
-            }
-
-            //Check whether file has the given id or not
-            if ((int) strtol(tokens[0], &tempPointer, 10) == id) {
-                //Store user's info into struct
-                fetchedAdmin->id = (int) strtol(tokens[0], &tempPointer, 10);
-                fetchedAdmin->name = tokens[1];
-                fetchedAdmin->username = tokens[2];
-                fetchedAdmin->password = tokens[3];
-
-                break;
-            }
-        }
-
-        fclose(adminDataFile);
-    } else {
-        printf("Error!! File is not existed.\n");
-    }
-}
-
-void getAdminByName(char *givenName, Admin *fetchedAdmin) {
-    adminDataFile = fopen(ADMIN_FILE, "r");
-
-    fetchedAdmin->id = 0;
-    fetchedAdmin->name = NULL;
-    fetchedAdmin->username = NULL;
-    fetchedAdmin->password = NULL;
-
-    if (adminDataFile != NULL) {
-        char fetchedInformation[1000];
-
-        /*
-         * Loop to get every line in file
-         */
-        while (fgets(fetchedInformation, 1000, adminDataFile) != NULL) {
-            int endLineIndex = indexOf('\n', fetchedInformation);
-            fetchedInformation[endLineIndex] = '\0';
-            int i = 0, j = 0;
-            char *tempPointer;
-
-            /*
-             * Parse main tokens (id-name-username-password)
-             */
-            char *tokens[4];
-            char *token;
-            //Parse the first token
-            token = strtok(fetchedInformation, "-");
-            //Parse the next tokens
-            while (token != NULL) {
-                tokens[i] = token;
-                i++;
-                token = strtok(NULL, "-");
-            }
-
-            //Check whether file has the given name or not
-            if (strcmp(tokens[1], givenName) == 0) {
-                //Store user's info into struct
-                fetchedAdmin->id = (int) strtol(tokens[0], &tempPointer, 10);
-                fetchedAdmin->name = tokens[1];
-                fetchedAdmin->username = tokens[2];
-                fetchedAdmin->password = tokens[3];
-
-                break;
-            }
-        }
-
-        fclose(adminDataFile);
-    } else {
-        printf("Error!! File is not existed.\n");
-    }
-}
-
-void getAdminByUsername(char *givenUsername, Admin *fetchedAdmin) {
-    adminDataFile = fopen(ADMIN_FILE, "r");
-
-    fetchedAdmin->id = 0;
-    fetchedAdmin->name = NULL;
-    fetchedAdmin->username = NULL;
-    fetchedAdmin->password = NULL;
-
-    if (adminDataFile != NULL) {
-        char fetchedInformation[1000];
-
-        /*
-         * Loop to get every line in file
-         */
-        while (fgets(fetchedInformation, 1000, adminDataFile) != NULL) {
-            int endLineIndex = indexOf('\n', fetchedInformation);
-            fetchedInformation[endLineIndex] = '\0';
-            int i = 0, j = 0;
-            char *tempPointer;
-
-            /*
-             * Parse main tokens (id-name-username-password)
-             */
-            char *tokens[4];
-            char *token;
-            //Parse the first token
-            token = strtok(fetchedInformation, "-");
-            //Parse the next tokens
-            while (token != NULL) {
-                tokens[i] = token;
-                i++;
-                token = strtok(NULL, "-");
-            }
-
-            //Check whether file has the given username or not
-            if (strcmp(tokens[2], givenUsername) == 0) {
-                //Store user's info into struct
-                fetchedAdmin->id = (int) strtol(tokens[0], &tempPointer, 10);
-                fetchedAdmin->name = tokens[1];
-                fetchedAdmin->username = tokens[2];
-                fetchedAdmin->password = tokens[3];
-
-                break;
-            }
-        }
-
-        fclose(adminDataFile);
-    } else {
-        printf("Error!! File is not existed.\n");
-    }
-}
-
-int getLastAdminID() {
-    adminDataFile = fopen(ADMIN_FILE, "r");
-    int lastID = 0;
-
-    if (adminDataFile != NULL) {
-        char fetchedInformation[1000];
-
-        /*
-         * Loop to get every line in file
-         */
-        while (fgets(fetchedInformation, 1000, adminDataFile) != NULL) {
-            int endLineIndex = indexOf('\n', fetchedInformation);
-            fetchedInformation[endLineIndex] = '\0';
-            int i = 0;
-            char *tempPointer;
-
-            /*
-             * Parse the id
-             */
-            char *token;
-            token = strtok(fetchedInformation, "-"); 
-            lastID = (int) strtol(token, &tempPointer, 10);   
-        }
-
-        fclose(adminDataFile);
-        return lastID;
-    } else {
-        printf("Error!! File is not existed.\n");
-        return -1;
-    }
-}
-
-bool isAdminIDExisted(int id) {
-    if (id < 1)
-        return false;
-
-    adminDataFile = fopen(ADMIN_FILE, "r");
-
-    if (adminDataFile != NULL) {
-        char fetchedInformation[1000];
-
-        /*
-         * Loop to get every line in file
-         */
-        while (fgets(fetchedInformation, 1000, adminDataFile) != NULL) {
-            int endLineIndex = indexOf('\n', fetchedInformation);
-            fetchedInformation[endLineIndex] = '\0';
-            char *tempPointer;
-
-            /*
-             * Parse the first token containing the id
-             */
-            char *token;
-            token = strtok(fetchedInformation, "-");
-
-            //Compare to the parameter
-            if ((int) strtol(token, &tempPointer, 10) == id) {
-                fclose(adminDataFile);
-                return true;
-            }
-        }
-
-        fclose(adminDataFile);
-        return false;
-    } else {
-        printf("Error!! File is not existed.\n");
-    }
-}
-
-bool isAdminUsernameExisted(char *username) {
-    adminDataFile = fopen(ADMIN_FILE, "r");
-
-    if (adminDataFile != NULL) {
-        char fetchedInformation[1000];
-
-        /*
-         * Loop to get every line in file
-         */
-        while (fgets(fetchedInformation, 1000, adminDataFile) != NULL) {
-            int endLineIndex = indexOf('\n', fetchedInformation);
-            fetchedInformation[endLineIndex] = '\0';
-            char *tempPointer;
-            int i = 0;
-
-            /*
-             * Parse the first three tokens (id-name-username)
-             */
-            char *tokens[3];
-            char *token;
-            //Parse the first token
-            token = strtok(fetchedInformation, "-");
-            //Parse the rest
-            while (token != NULL && i < 3) {
-                tokens[i] = token;
-                i++;
-                token = strtok(NULL, "-");
-            }
-
-            //Compare to the parameter
-            if (strcmp(tokens[2], username) == 0) {
-                fclose(adminDataFile);
-                return true;
-            }
-        }
-
-        fclose(adminDataFile);
-        return false;
-    } else {
-        printf("Error!! File is not existed.\n");
-    }
-}
-
-int insertAdmin(Admin admin) {
-    if (admin.name == NULL || admin.username == NULL || admin.password == NULL) {
-        return -1;
-    }
-
-    if (isAdminUsernameExisted(admin.username)) {
-        return 0;
-    } else {
-        admin.id = getLastAdminID() + 1;
-
-        adminDataFile = fopen(ADMIN_FILE, "a");
-        
-        fprintf(userDataFile, "%d-%s-%s-%s\n", admin.id, admin.name, 
-                admin.username, admin.password);
-
-        fclose(adminDataFile);        
-        return 1;
-    }
-}
-
-int adminLogin(char *givenUsername, char *givenPassword) {
-    Admin admin = {};
-
-    getAdminByUsername(givenUsername, &admin);
-    if (admin.username == NULL || admin.password == NULL) {
-        return -1;
-    } else if (strcmp(admin.password, givenPassword) != 0) {
-        return 0;
     } else {
         return 1;
     }
