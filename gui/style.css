@@ -1,13 +1,13 @@
 
 #sidebarBackground{
-    background-color: #ece8e9;
+    background-color: #f5f5f5;
 }
 #calendarSide{
     background-color: white;
 }
 label{
     color: #727272;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
 }
 #loginLabel{
@@ -50,4 +50,20 @@ label{
 
 #boxFrame{
     border: solid 1px #dbdbdb;
+}
+
+#importantLable{
+    background: #d45f4a;
+}
+#reminderLabel{
+    background: #4facf2;
+}
+#workLable{
+    background: #f5c445;
+}
+
+popover{
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 6px 0px #696969; 
+    box-shadow: 0px 0px 6px 0px #696969;
 }
