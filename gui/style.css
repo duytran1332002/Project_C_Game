@@ -25,9 +25,12 @@ label{
 }
 
 #createEventButton:hover{
-    background-color: #d45f4a;
     color: #d45f4a;
     font-size: 25px;
+}
+
+button:hover{
+    opacity: 0.8;
 }
 
 
