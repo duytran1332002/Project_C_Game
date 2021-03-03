@@ -2,105 +2,120 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkWindow">
+  <object class="GtkListStore" id="liststoreManage">
+    <columns>
+      <!-- column-name colID -->
+      <column type="gchar"/>
+      <!-- column-name colUsername -->
+      <column type="gchar"/>
+      <!-- column-name colName -->
+      <column type="gchar"/>
+      <!-- column-name colPass -->
+      <column type="gchar"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0"/>
+        <col id="1"/>
+        <col id="2"/>
+        <col id="3"/>
+      </row>
+      <row>
+        <col id="0"/>
+        <col id="1"/>
+        <col id="2"/>
+        <col id="3"/>
+      </row>
+    </data>
+  </object>
+  <object class="GtkWindow" id="window_manage">
     <property name="can-focus">False</property>
-    <property name="default-width">700</property>
-    <property name="default-height">500</property>
+    <property name="resizable">False</property>
+    <property name="default-width">690</property>
+    <property name="default-height">620</property>
+    <signal name="destroy" handler="on_CalendarManageUserWindow_destroy" swapped="no"/>
     <child>
-      <object class="GtkScrolledWindow">
+      <object class="GtkFixed">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
-        <property name="shadow-type">in</property>
+        <property name="can-focus">False</property>
         <child>
-          <object class="GtkViewport">
+          <object class="GtkScrolledWindow">
+            <property name="width-request">690</property>
+            <property name="height-request">552</property>
             <property name="visible">True</property>
-            <property name="can-focus">False</property>
+            <property name="can-focus">True</property>
+            <property name="shadow-type">in</property>
             <child>
-              <object class="GtkBox">
+              <object class="GtkViewport" id="treeViewManage">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkBox">
+                  <object class="GtkTreeView">
                     <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="width-request">53</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">ID</property>
-                        <attributes>
-                          <attribute name="font-desc" value="Segoe UI Bold 15"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
+                    <property name="can-focus">True</property>
+                    <property name="model">liststoreManage</property>
+                    <property name="search-column">0</property>
+                    <property name="hover-selection">True</property>
+                    <property name="tooltip-column">7</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
                     </child>
                     <child>
-                      <object class="GtkLabel">
-                        <property name="width-request">174</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">User name</property>
-                        <attributes>
-                          <attribute name="font-desc" value="Segoe UI Bold 15"/>
-                        </attributes>
+                      <object class="GtkTreeViewColumn" id="colID">
+                        <property name="sizing">autosize</property>
+                        <property name="fixed-width">34</property>
+                        <property name="title" translatable="yes">ID</property>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel">
-                        <property name="width-request">252</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Name</property>
-                        <attributes>
-                          <attribute name="font-desc" value="Segoe UI Bold 15"/>
-                        </attributes>
+                      <object class="GtkTreeViewColumn" id="colUsername">
+                        <property name="resizable">True</property>
+                        <property name="fixed-width">150</property>
+                        <property name="title" translatable="yes">Username</property>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel">
-                        <property name="width-request">223</property>
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="label" translatable="yes">Password</property>
-                        <attributes>
-                          <attribute name="font-desc" value="Segoe UI Bold 15"/>
-                        </attributes>
+                      <object class="GtkTreeViewColumn" id="colName">
+                        <property name="resizable">True</property>
+                        <property name="fixed-width">250</property>
+                        <property name="title" translatable="yes">Name</property>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="colPass">
+                        <property name="resizable">True</property>
+                        <property name="title" translatable="yes">Passwword</property>
+                      </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
               </object>
             </child>
           </object>
+        </child>
+        <child>
+          <object class="GtkButton" id="btnDelete">
+            <property name="width-request">100</property>
+            <property name="height-request">38</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Delete</property>
+                <attributes>
+                  <attribute name="font-desc" value="Arial Bold 13"/>
+                  <attribute name="foreground" value="#eded33333b3b"/>
+                </attributes>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">557</property>
+            <property name="y">564</property>
+          </packing>
         </child>
       </object>
     </child>

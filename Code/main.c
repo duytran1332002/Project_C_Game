@@ -38,7 +38,16 @@ GtkEntry *userEntryAdmin;
 GtkEntry *passEntryAdmin;
 GtkWidget *lbUserCorAdmin;
 GtkWidget *lbPassCorAdmin;
-
+// liststore to save user
+GtkListStore *liststoreManage;
+GtkTreeView *treeViewManage;
+GtkTreeViewColumn *colID;
+GtkTreeViewColumn *colUsername;
+GtkTreeViewColumn *colName;
+GtkTreeViewColumn *colPass;
+// Manage window
+GtkWidget *windowManage;
+// successfull dialog
 GtkWidget *dialogSuccess;
 // Sign Up
 GtkWidget *windowSign;
@@ -267,17 +276,49 @@ void showLoginAdminWindow(int argc, char *argv[])
     gtk_widget_show(windowLoginAdmin);
     gtk_main();
 }
+void showManageUserWindow(int argc, char *argv[])
+{
+    GtkBuilder *builderManage;
+    GtkTreeIter iter;
+
+    gtk_init(&argc, &argv);
+
+    builderManage = gtk_builder_new();
+    gtk_builder_add_from_file (builderManage, "../gui/CalendarManageUser.glade", NULL);
+
+    windowManage = GTK_WIDGET(gtk_builder_get_object(builderManage, "window_manage"));
+    liststoreManage = GTK_LIST_STORE(gtk_builder_get_object(builderManage, "liststoreManage"));
+    treeViewManage = GTK_TREE_VIEW(gtk_builder_get_object(builderManage, "treeViewManage"));
+    colID = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builderManage, "colID"));
+    colUsername = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builderManage, "colUsername"));
+    colName = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builderManage, "colName"));
+    colPass = GTK_TREE_VIEW_COLUMN(gtk_builder_get_object(builderManage, "colPass"));
+    
+    gtk_list_store_append(liststoreManage, &iter);
+    gtk_list_store_set (liststoreManage, &iter, 0, "yes", -1);
+    gtk_builder_connect_signals(builderManage, NULL);
+
+    g_object_unref(builderManage);
+
+    gtk_widget_show(windowManage);
+    gtk_main();
+}
 int main(int argc, char *argv[])
 {
     showCalendarWindow(argc, argv);
     return 0;
 }
 
+// destroy calendar window
 G_MODULE_EXPORT void on_window_calendar_destroy()
 {
     gtk_main_quit();
 }
-
+// destroy Manage window
+G_MODULE_EXPORT void on_CalendarManageUserWindow_destroy()
+{
+	gtk_main_quit();
+}
 G_MODULE_EXPORT void on_downYear_clicked(int argc, char *argv[])
 {
     currentYear--;
@@ -411,8 +452,10 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
             gtk_label_set_text(GTK_LABEL(lbPassCorLogin), "*wrong password");
         } else {
             //Do something if there is such account and right password
+            //User user = {};
             getUserByUsername(userTxtLogin, &user);
             sprintf(currUserName, "%s", userTxtLogin);
+            g_print("%s", user.username);
             gtk_widget_destroy(GTK_WIDGET(windowLogin));
             gtk_widget_destroy(GTK_WIDGET(windowCalendar));
             showCalendarWindow(argc, argv);
@@ -490,6 +533,7 @@ G_MODULE_EXPORT void onClicked_Signup()
             gtk_label_set_text(GTK_LABEL(lbConfCor), "*not same with confirm password");
         }   
         else {
+        	//User user = {};
             user.name = nameTxtSign;
             user.username = userTxtSign;
             user.password = passTxtSign;
@@ -534,7 +578,7 @@ G_MODULE_EXPORT void on_window_admin_destroy()
 {
 	gtk_main_quit();
 }
-G_MODULE_EXPORT void onClicked_Login_Admin(){
+G_MODULE_EXPORT void onClicked_Login_Admin(int argc, char *argv[]){
 	// variable to save GTK Entry
     char userTxtAdmin[128];
     char passTxtAdmin[128];
@@ -567,7 +611,8 @@ G_MODULE_EXPORT void onClicked_Login_Admin(){
             gtk_label_set_text(GTK_LABEL(lbPassCorAdmin), "*wrong password");
         } else {
             //Do something if there is such account and right password
-            gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));  
+            gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
+            showManageUserWindow(argc, argv);  
         }
     }
 
