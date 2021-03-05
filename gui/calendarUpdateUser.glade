@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
-  <object class="GtkDialog" id="dialogSuccess">
+  <object class="GtkDialog" id="dialogSuccessUpdate">
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
     <property name="default-width">430</property>
@@ -18,11 +18,11 @@
             <property name="can-focus">False</property>
             <property name="layout-style">end</property>
             <child>
-              <object class="GtkButton" id="btnOk">
+              <object class="GtkButton" id="btnOkUpdate">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="receives-default">True</property>
-                <signal name="clicked" handler="on_btnOk_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_btnOkUpdate_clicked" swapped="no"/>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
@@ -53,7 +53,7 @@
         <child>
           <object class="GtkFixed">
             <property name="width-request">32</property>
-            <property name="height-request">74</property>
+            <property name="height-request">32</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
@@ -93,12 +93,13 @@ Thanks for using app</property>
       </object>
     </child>
   </object>
-  <object class="GtkWindow" id="window_sig">
+  <object class="GtkWindow" id="window_update">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Signup window</property>
-    <property name="default-width">500</property>
+    <property name="resizable">False</property>
+    <property name="default-width">485</property>
     <property name="default-height">650</property>
-    <signal name="destroy" handler="on_window_sign_destroy" swapped="no"/>
+    <signal name="destroy" handler="on_window_update_destroy" swapped="no"/>
     <child>
       <object class="GtkFixed">
         <property name="visible">True</property>
@@ -109,7 +110,7 @@ Thanks for using app</property>
             <property name="height-request">250</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="pixbuf">calenarp_illustration_sign.png</property>
+            <property name="pixbuf">update_image.png</property>
           </object>
           <packing>
             <property name="x">79</property>
@@ -122,30 +123,30 @@ Thanks for using app</property>
             <property name="height-request">80</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">Calendar SignUp</property>
+            <property name="label" translatable="yes">Update Account</property>
             <attributes>
-              <attribute name="font-desc" value="Sans Bold 24"/>
+              <attribute name="font-desc" value="Sans Bold 22"/>
               <attribute name="foreground" value="#e6e661610000"/>
             </attributes>
           </object>
           <packing>
             <property name="x">91</property>
-            <property name="y">198</property>
+            <property name="y">293</property>
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btnSign">
+          <object class="GtkButton" id="btnGetUpdate">
             <property name="width-request">100</property>
             <property name="height-request">44</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <signal name="clicked" handler="onClicked_Signup" swapped="no"/>
+            <signal name="clicked" handler="on_btnGetUpdate_clicked" swapped="no"/>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Sign up</property>
+                <property name="label" translatable="yes">Update</property>
                 <attributes>
                   <attribute name="font-desc" value="Sans Bold 11"/>
                   <attribute name="foreground" value="#e6e661610000"/>
@@ -155,55 +156,13 @@ Thanks for using app</property>
           </object>
           <packing>
             <property name="x">199</property>
-            <property name="y">592</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="width-request">252</property>
-            <property name="height-request">80</property>
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="label" translatable="yes">If you already have account ?</property>
-            <attributes>
-              <attribute name="font-desc" value="Segoe UI 12"/>
-              <attribute name="foreground" value="#e6e661610000"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="x">98</property>
-            <property name="y">629</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="btnLoginChange">
-            <property name="width-request">100</property>
-            <property name="height-request">47</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <signal name="clicked" handler="onClicked_login_change" swapped="no"/>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Log in</property>
-                <attributes>
-                  <attribute name="font-desc" value="Sans Bold 11"/>
-                  <attribute name="foreground" value="#e6e661610000"/>
-                </attributes>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="x">360</property>
-            <property name="y">646</property>
+            <property name="y">593</property>
           </packing>
         </child>
         <child>
           <object class="GtkBox">
             <property name="width-request">330</property>
-            <property name="height-request">302</property>
+            <property name="height-request">213</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="orientation">vertical</property>
@@ -219,7 +178,7 @@ Thanks for using app</property>
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="pixbuf">name.png</property>
+                    <property name="pixbuf">user-profile.png</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -228,13 +187,13 @@ Thanks for using app</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry" id="nameEntry">
+                  <object class="GtkEntry" id="userEntryUpdate">
                     <property name="width-request">227</property>
                     <property name="height-request">49</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="placeholder-text" translatable="yes">Enter full name</property>
-                    <signal name="changed" handler="on_nameEntry_changed" swapped="no"/>
+                    <property name="placeholder-text" translatable="yes">Enter user name</property>
+                    <signal name="changed" handler="on_userEntryUpdate_changed" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -250,7 +209,7 @@ Thanks for using app</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="lbNameCor">
+              <object class="GtkLabel" id="lbUserCorUpdate">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <attributes>
@@ -275,7 +234,7 @@ Thanks for using app</property>
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="pixbuf">user-profile.png</property>
+                    <property name="pixbuf">padlock .png</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -284,18 +243,42 @@ Thanks for using app</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry" id="userEntry">
+                  <object class="GtkEntry" id="passEntryUpdate">
                     <property name="width-request">227</property>
                     <property name="height-request">49</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
-                    <property name="placeholder-text" translatable="yes">Enter user name</property>
-                    <signal name="changed" handler="on_userEntry_changed" swapped="no"/>
+                    <property name="visibility">False</property>
+                    <property name="invisible-char">●</property>
+                    <property name="placeholder-text" translatable="yes">Enter password</property>
+                    <signal name="changed" handler="on_passEntryUpdate_changed" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btnViewPassUpdate">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="relief">none</property>
+                    <signal name="pressed" handler="on_btnViewPassUpdate_pressed" swapped="no"/>
+                    <signal name="released" handler="on_btnViewPassUpdate_released" swapped="no"/>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="pixbuf">view.png</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -306,7 +289,7 @@ Thanks for using app</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="lbUserCor">
+              <object class="GtkLabel" id="lbPassCorUpdate">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <attributes>
@@ -331,7 +314,7 @@ Thanks for using app</property>
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="pixbuf">padlock .png</property>
+                    <property name="pixbuf">key.png</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -340,15 +323,15 @@ Thanks for using app</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry" id="passEntry">
+                  <object class="GtkEntry" id="confPassEntryUpdate">
                     <property name="width-request">227</property>
                     <property name="height-request">49</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="visibility">False</property>
                     <property name="invisible-char">●</property>
-                    <property name="placeholder-text" translatable="yes">Enter password</property>
-                    <signal name="changed" handler="on_passEntry_changed" swapped="no"/>
+                    <property name="placeholder-text" translatable="yes">Enter confirm password</property>
+                    <signal name="changed" handler="on_confPassEntryUpdate_changed" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -357,15 +340,13 @@ Thanks for using app</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkButton" id="btnViewPassSignup">
-                    <property name="width-request">38</property>
-                    <property name="height-request">40</property>
+                  <object class="GtkButton" id="btnViewConfUpdate">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
                     <property name="relief">none</property>
-                    <signal name="pressed" handler="on_btnViewPassSignup_pressed" swapped="no"/>
-                    <signal name="released" handler="on_btnViewPassSignup_released" swapped="no"/>
+                    <signal name="pressed" handler="on_btnViewConfUpdate_pressed" swapped="no"/>
+                    <signal name="released" handler="on_btnViewConfUpdate_released" swapped="no"/>
                     <child>
                       <object class="GtkImage">
                         <property name="visible">True</property>
@@ -388,7 +369,7 @@ Thanks for using app</property>
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="lbPassCor">
+              <object class="GtkLabel" id="lbConfCorUpdate">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <attributes>
@@ -401,92 +382,10 @@ Thanks for using app</property>
                 <property name="position">5</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkBox">
-                <property name="width-request">218</property>
-                <property name="height-request">51</property>
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="width-request">50</property>
-                    <property name="height-request">20</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="pixbuf">key.png</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="confPassEntry">
-                    <property name="width-request">227</property>
-                    <property name="height-request">49</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="visibility">False</property>
-                    <property name="invisible-char">●</property>
-                    <property name="placeholder-text" translatable="yes">Enter confirm password</property>
-                    <signal name="changed" handler="on_confPassEntry_changed" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="btnViewConfSignup">
-                    <property name="width-request">38</property>
-                    <property name="height-request">40</property>
-                    <property name="visible">True</property>
-                    <property name="can-focus">True</property>
-                    <property name="receives-default">True</property>
-                    <property name="relief">none</property>
-                    <signal name="pressed" handler="on_btnViewConfSignup_pressed" swapped="no"/>
-                    <signal name="released" handler="on_btnViewConfSignup_released" swapped="no"/>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can-focus">False</property>
-                        <property name="pixbuf">view.png</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">6</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="lbConfCor">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <attributes>
-                  <attribute name="foreground" value="#e0e01b1b2424"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">7</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="x">91</property>
-            <property name="y">271</property>
+            <property name="y">366</property>
           </packing>
         </child>
       </object>

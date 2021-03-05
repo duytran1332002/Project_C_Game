@@ -125,6 +125,7 @@ Thanks for using app</property>
             <property name="label" translatable="yes">Calendar SignUp</property>
             <attributes>
               <attribute name="font-desc" value="Sans Bold 24"/>
+              <attribute name="foreground" value="#e6e661610000"/>
             </attributes>
           </object>
           <packing>
@@ -134,17 +135,27 @@ Thanks for using app</property>
         </child>
         <child>
           <object class="GtkButton" id="btnSign">
-            <property name="label" translatable="yes">Sign Up</property>
             <property name="width-request">100</property>
             <property name="height-request">44</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="onClicked_Signup" swapped="no"/>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Sign up</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 11"/>
+                  <attribute name="foreground" value="#e6e661610000"/>
+                </attributes>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="x">199</property>
-            <property name="y">589</property>
+            <property name="y">592</property>
           </packing>
         </child>
         <child>
@@ -156,6 +167,7 @@ Thanks for using app</property>
             <property name="label" translatable="yes">If you already have account ?</property>
             <attributes>
               <attribute name="font-desc" value="Segoe UI 12"/>
+              <attribute name="foreground" value="#e6e661610000"/>
             </attributes>
           </object>
           <packing>
@@ -165,13 +177,23 @@ Thanks for using app</property>
         </child>
         <child>
           <object class="GtkButton" id="btnLoginChange">
-            <property name="label" translatable="yes">Login</property>
             <property name="width-request">100</property>
             <property name="height-request">47</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="onClicked_login_change" swapped="no"/>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Log in</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 11"/>
+                  <attribute name="foreground" value="#e6e661610000"/>
+                </attributes>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="x">360</property>
@@ -334,6 +356,30 @@ Thanks for using app</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkButton" id="btnViewPassSignup">
+                    <property name="width-request">38</property>
+                    <property name="height-request">40</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="relief">none</property>
+                    <signal name="pressed" handler="on_btnViewPassSignup_pressed" swapped="no"/>
+                    <signal name="released" handler="on_btnViewPassSignup_released" swapped="no"/>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="pixbuf">view.png</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -392,6 +438,30 @@ Thanks for using app</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkButton" id="btnViewConfSignup">
+                    <property name="width-request">38</property>
+                    <property name="height-request">40</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="relief">none</property>
+                    <signal name="pressed" handler="on_btnViewConfSignup_pressed" swapped="no"/>
+                    <signal name="released" handler="on_btnViewConfSignup_released" swapped="no"/>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="pixbuf">view.png</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -416,7 +486,7 @@ Thanks for using app</property>
           </object>
           <packing>
             <property name="x">91</property>
-            <property name="y">298</property>
+            <property name="y">271</property>
           </packing>
         </child>
       </object>

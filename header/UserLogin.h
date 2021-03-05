@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "LunarCalendar.h"
 #include "../model/UserModel.h"
 
@@ -25,9 +26,10 @@ bool isValidUsername(char *username);
 bool isValidPassword(char *password);
 int userLogin(char *username, char *password);
 int registerNewAccount(User user);
+void modifyName(char *name);
 
 FILE *userDataFile;
-const char USER_FILE[] = "../data/users_data.dat";
+const char USER_FILE[] = "data/users_data.dat";
 // int MAX_DAYS_OF_MONTH[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 /**
@@ -440,6 +442,8 @@ int insertUser(User user) {
 
         userDataFile = fopen(USER_FILE, "a");
         
+        modifyName(user.name);
+
         fprintf(userDataFile, "%d-%s-%s-%s\n", user.id, user.name, 
                 user.username, user.password);
 
@@ -581,6 +585,43 @@ int registerNewAccount(User user) {
         return 0; 
     } else {
         return 1;
+    }
+}
+
+void leftTrim(char *name) {
+    int leftIndex = 0;
+
+    while (name[leftIndex] == ' ')
+        leftIndex++;
+    if (leftIndex > 0) 
+        strcpy(&name[0], &name[leftIndex]);
+}
+
+void rightTrim(char *name) {
+    int rightIndex = strlen(name) - 1;
+
+    while (name[rightIndex] == ' ')
+        rightIndex--;
+    name[rightIndex + 1] = '\0';
+}
+
+void spaceTrim(char *name) {
+    int i, x;
+    for(i = x = 0; name[i]; ++i)
+        if(!(name[i] == ' ') || (i > 0 && !(name[i-1] == ' ')))
+            name[x++] = name[i];
+    name[x] = '\0';
+}
+
+void modifyName(char *name) {
+    leftTrim(name);
+    rightTrim(name);
+    spaceTrim(name);
+
+    for (int i = 0; name[i]; ++i) {
+        name[i] = tolower(name[i]);
+        if ((i == 0) || (i > 0 && (name[i - 1] == ' ')))
+            name[i] = toupper(name[i]);
     }
 }
 

@@ -19,14 +19,14 @@ bool isAdminIDExisted(int id);
 bool isAdminUsername(char *username);
 int insertAdmin(Admin admin);
 int adminLogin(char *username, char *password);
-int updateUsername(char *username, char newUsername[]);
-int updatePassword(char *givenPassword, char *newPassword);
+int updateUsername(int id, char newUsername[]);
+int updatePassword(int id, char *newPassword);
 int deleteUser(User *user);
 
 FILE *adminDataFile;
 FILE *tempDataFile;
-const char ADMIN_FILE[] = "../data/admins_data.dat";
-const char TEMP_FILE[] = "../data/temp_data.dat";
+const char ADMIN_FILE[] = "data/admins_data.dat";
+const char TEMP_FILE[] = "data/temp_data.dat";
 
 /**
  * getAdminByID:
@@ -378,13 +378,13 @@ int adminLogin(char *givenUsername, char *givenPassword) {
  * If there is no such account, return 0.
  * If there are error in update process, return -1.
  */
-int updateUsername(char *username, char *newUsername) {
-    if (username == NULL) {
+int updateUsername(int id, char *newUsername) {
+    if (id == 0) {
         return 0;
     }
     
     User user = {};
-    getUserByUsername(username, &user);
+    getUserByID(id, &user);
     if (user.username == NULL) {
         return 0;
     }
@@ -454,13 +454,13 @@ int updateUsername(char *username, char *newUsername) {
  * If there is no such account, return 0.
  * If there are error in update process, return -1.
  */
-int updatePassword(char *username, char *newPassword) {
-    if (username == NULL) {
+int updatePassword(int id, char *newPassword) {
+    if (id == 0) {
         return 0;
     }
     
     User user = {};
-    getUserByUsername(username, &user);
+    getUserByID(id, &user);
     if (user.username == NULL) {
         return 0;
     }

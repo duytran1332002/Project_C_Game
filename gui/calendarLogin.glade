@@ -36,6 +36,7 @@
             <property name="label" translatable="yes">Calendar Login</property>
             <attributes>
               <attribute name="font-desc" value="Sans Bold 24"/>
+              <attribute name="foreground" value="#e6e661610000"/>
             </attributes>
           </object>
           <packing>
@@ -101,13 +102,24 @@
         </child>
         <child>
           <object class="GtkButton" id="btnLogin">
-            <property name="label" translatable="yes">Login</property>
             <property name="width-request">100</property>
             <property name="height-request">46</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="onClicked_Login" swapped="no"/>
+            <signal name="enter" handler="on_btnLogin_enter" swapped="no"/>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Log in</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 11"/>
+                  <attribute name="foreground" value="#e6e661610000"/>
+                </attributes>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="x">187</property>
@@ -123,6 +135,7 @@
             <property name="label" translatable="yes">If you don't have account ?</property>
             <attributes>
               <attribute name="font-desc" value="Segoe UI 12"/>
+              <attribute name="foreground" value="#e6e661610000"/>
             </attributes>
           </object>
           <packing>
@@ -132,13 +145,23 @@
         </child>
         <child>
           <object class="GtkButton" id="btnSignChange">
-            <property name="label" translatable="yes">Sign in</property>
             <property name="width-request">100</property>
             <property name="height-request">46</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="onClicked_sign_change" swapped="no"/>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Sign up</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 11"/>
+                  <attribute name="foreground" value="#e6e661610000"/>
+                </attributes>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="x">328</property>
@@ -173,6 +196,29 @@
           <packing>
             <property name="x">143</property>
             <property name="y">384</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btnViewPassLogin">
+            <property name="width-request">38</property>
+            <property name="height-request">40</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="relief">none</property>
+            <signal name="pressed" handler="on_btnViewPassLogin_pressed" swapped="no"/>
+            <signal name="released" handler="on_btnViewPassLogin_released" swapped="no"/>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="pixbuf">view.png</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">349</property>
+            <property name="y">342</property>
           </packing>
         </child>
       </object>

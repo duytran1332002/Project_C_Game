@@ -1,12 +1,12 @@
-
+/* set background darkmode */
 #sidebarBackground{
-    background-color: #f5f5f5;
+    background-color: #2e2f31;
 }
 #calendarSide{
-    background-color: white;
+    background-color: #202124;
 }
 label{
-    color: #727272;
+    color: #fafafa;
     font-size: 20px;
     font-weight: 600;
 }
@@ -16,21 +16,30 @@ label{
 }
 #createEventButton{
     border-width: 2px;
-    border: solid 2px #3584E4;
-    color: #3584E4;
+    border: solid 2px orange;
     font-size: 25px;
     padding-top: 10px;
     padding-bottom: 10px;
     font-weight: bold;
 }
 
-#createEventButton:hover{
-    color: #d45f4a;
+#createEventButtonLabel{
+    color: orange;
     font-size: 25px;
+    font-weight: 600;
+}
+
+#createEventButton:hover{
+    font-size: 25px;
+    background: #585b60;
+}
+#createEventButton:checked{
+    font-size: 25px;
+    background: #585b60;
 }
 
 button:hover{
-    opacity: 0.8;
+    opacity: 0.1;
 }
 
 
@@ -52,7 +61,7 @@ button:hover{
 }
 
 #boxFrame{
-    border: solid 1px #dbdbdb;
+    border: solid 1px #3f3f3f;
 }
 
 #importantLable{
@@ -66,27 +75,36 @@ button:hover{
 }
 
 popover{
-    border: 12px solid white;
-    background-color: white;
-    -webkit-box-shadow: 0px 0px 6px 0px #696969; 
-    box-shadow: 0px 0px 6px 0px #696969;
+    border: 12px solid #2e2f31;
+    background-color: #2e2f31;
+    -webkit-box-shadow: 0px 0px 7px 0px #18191a; 
+    box-shadow: 0px 0px 6px 0px #18191a;
 }
 
 #confirmButton{
     color: white;
-    background: #3584E4;
+    background: orange;
 }
 #holidayLabel{
-    background-color: #dcf1d2;
-    color: #6f9d51;
+    background-color: #274521;
+    color: #62b74a;
     border-radius: 8px;
     padding: 0 40px;
 }
+
 #dayinWeek{
     font-size:40px;
     font-weight: 800;
-    color: #3584E4;
+    color: orange;
 }
+
+#controlButton{
+    background-color: #585b60;
+}
+#icon{
+    color: #cdcfd0;
+}
+
 slider{
     border-radius: 8px;
 }
@@ -95,33 +113,56 @@ switch{
 }
 switch:checked{
     border-radius: 8px;
-    background: #3584E4;
+    background: orange;
 }
 
 #titleDate{
-    color: #2e2f31;
+    color: #fafafa;
     font-size: 50px;
     font-weight: 900;
 }
 
 #titleYear{
-    color: #3584E4;
+    color: orange;
     font-size: 40px;
     font-weight: 700;
 }
-
 #date{
-    color: #2e2f31;
+    color: #fafafa;
     font-size: 25px;
     font-weight: 700;
 }
-
+button:checked{
+    background: #585b60;
+}
+calendar{
+    background: #2e2f31;
+    color: #fafafa;
+}
+#entryTitle{
+    background: #585b60;
+    color: #fafafa;
+}
+textview text {
+    background-color: #585b60;
+    color: #fafafa;
+}
 #reviewEventTitle{
-    color: #2e2f31;
+    color: #fafafa;
     font-size: 30px;
     font-weight: 700;
 }
-#controlButton{
-    background-color: #f5f5f5;
-    border: 1.5px solid #dbdbdb;
+#cc{
+    color: #fafafa;
+    background-color: #e9e9e9 ;
+    border-radius: 8px;
+}
+
+stackswitcher {
+    background: #585b60;
+}
+stackswitcher:hover{
+    background: #585b60;
+    color: #fafafa;
+    opacity: 0;
 }

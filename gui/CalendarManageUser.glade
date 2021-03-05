@@ -4,29 +4,15 @@
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkListStore" id="liststoreManage">
     <columns>
-      <!-- column-name colID -->
-      <column type="gchar"/>
-      <!-- column-name colUsername -->
-      <column type="gchar"/>
-      <!-- column-name colName -->
-      <column type="gchar"/>
-      <!-- column-name colPass -->
-      <column type="gchar"/>
+      <!-- column-name ID -->
+      <column type="gchararray"/>
+      <!-- column-name Username -->
+      <column type="gchararray"/>
+      <!-- column-name Name -->
+      <column type="gchararray"/>
+      <!-- column-name Password -->
+      <column type="gchararray"/>
     </columns>
-    <data>
-      <row>
-        <col id="0"/>
-        <col id="1"/>
-        <col id="2"/>
-        <col id="3"/>
-      </row>
-      <row>
-        <col id="0"/>
-        <col id="1"/>
-        <col id="2"/>
-        <col id="3"/>
-      </row>
-    </data>
   </object>
   <object class="GtkWindow" id="window_manage">
     <property name="can-focus">False</property>
@@ -55,16 +41,20 @@
                     <property name="can-focus">True</property>
                     <property name="model">liststoreManage</property>
                     <property name="search-column">0</property>
-                    <property name="hover-selection">True</property>
                     <property name="tooltip-column">7</property>
                     <child internal-child="selection">
-                      <object class="GtkTreeSelection"/>
+                      <object class="GtkTreeSelection" id="selection">
+                        <signal name="changed" handler="on_selection_changed" swapped="no"/>
+                      </object>
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="colID">
                         <property name="sizing">autosize</property>
                         <property name="fixed-width">34</property>
                         <property name="title" translatable="yes">ID</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="renderID"/>
+                        </child>
                       </object>
                     </child>
                     <child>
@@ -72,6 +62,13 @@
                         <property name="resizable">True</property>
                         <property name="fixed-width">150</property>
                         <property name="title" translatable="yes">Username</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="renderUsername"/>
+                          <attributes>
+                            <attribute name="wrap-width">0</attribute>
+                            <attribute name="max-width-chars">0</attribute>
+                          </attributes>
+                        </child>
                       </object>
                     </child>
                     <child>
@@ -79,12 +76,18 @@
                         <property name="resizable">True</property>
                         <property name="fixed-width">250</property>
                         <property name="title" translatable="yes">Name</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="renderName"/>
+                        </child>
                       </object>
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="colPass">
                         <property name="resizable">True</property>
                         <property name="title" translatable="yes">Passwword</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="renderPass"/>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -100,6 +103,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <signal name="clicked" handler="on_btnDelete_clicked" swapped="no"/>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>

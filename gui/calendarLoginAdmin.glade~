@@ -35,6 +35,7 @@
             <property name="label" translatable="yes">Admin Login</property>
             <attributes>
               <attribute name="font-desc" value="Sans Bold 24"/>
+              <attribute name="foreground" value="#e6e661610000"/>
             </attributes>
           </object>
           <packing>
@@ -100,13 +101,23 @@
         </child>
         <child>
           <object class="GtkButton" id="btnLogin">
-            <property name="label" translatable="yes">Login</property>
             <property name="width-request">100</property>
             <property name="height-request">46</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="onClicked_Login_Admin" swapped="no"/>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Log in</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans Bold 11"/>
+                  <attribute name="foreground" value="#e6e661610000"/>
+                </attributes>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="x">193</property>
@@ -141,6 +152,29 @@
           <packing>
             <property name="x">140</property>
             <property name="y">416</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btnViewPassAdmin">
+            <property name="width-request">44</property>
+            <property name="height-request">39</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+            <property name="relief">none</property>
+            <signal name="pressed" handler="on_btnViewPassAdmin_pressed" swapped="no"/>
+            <signal name="released" handler="on_btnViewPassAdmin_released" swapped="no"/>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="pixbuf">view.png</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">349</property>
+            <property name="y">373</property>
           </packing>
         </child>
       </object>
