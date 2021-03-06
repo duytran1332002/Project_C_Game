@@ -111,7 +111,6 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <signal name="clicked" handler="onClicked_Login" swapped="no"/>
-            <signal name="enter" handler="on_btnLogin_enter" swapped="no"/>
             <child>
               <object class="GtkLabel">
                 <property name="visible">True</property>

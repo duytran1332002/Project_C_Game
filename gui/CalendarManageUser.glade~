@@ -15,6 +15,7 @@
     </columns>
   </object>
   <object class="GtkWindow" id="window_manage">
+    <property name="name">calendarSide</property>
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
     <property name="default-width">690</property>
@@ -37,6 +38,7 @@
                 <property name="can-focus">False</property>
                 <child>
                   <object class="GtkTreeView">
+                    <property name="name">calendarSide</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="model">liststoreManage</property>

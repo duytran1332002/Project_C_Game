@@ -348,6 +348,7 @@ Thanks for using app</property>
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="margin-left">13</property>
                     <property name="margin-start">13</property>
                     <property name="pixbuf">padlock .png</property>
                   </object>
@@ -483,8 +484,8 @@ Thanks for using app</property>
             </child>
           </object>
           <packing>
-            <property name="x">411</property>
-            <property name="y">434</property>
+            <property name="x">412</property>
+            <property name="y">423</property>
           </packing>
         </child>
         <child>
@@ -508,7 +509,7 @@ Thanks for using app</property>
           </object>
           <packing>
             <property name="x">413</property>
-            <property name="y">519</property>
+            <property name="y">499</property>
           </packing>
         </child>
       </object>

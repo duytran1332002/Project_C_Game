@@ -770,7 +770,7 @@ Please check!!!</property>
     </child>
   </object>
   <object class="GtkPopover" id="popover_calendar">
-    <property name="name">userPopup</property>
+    <property name="name">ú</property>
     <property name="can-focus">False</property>
     <property name="relative-to">menubutton1</property>
     <property name="constrain-to">none</property>
@@ -1697,8 +1697,6 @@ Please check!!!</property>
                     <property name="receives-default">True</property>
                     <property name="relief">none</property>
                     <property name="popover">popover1</property>
-                    <signal name="activate" handler="on___glade_unnamed_6_activate" swapped="no"/>
-                    <signal name="clicked" handler="on___glade_unnamed_6_clicked" swapped="no"/>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
@@ -1781,7 +1779,6 @@ Please check!!!</property>
                 <property name="relief">none</property>
                 <property name="direction">right</property>
                 <property name="popover">popover3</property>
-                <signal name="clicked" handler="on_gtk_menu_btn_clicked" swapped="no"/>
                 <child>
                   <object class="GtkLabel">
                     <property name="name">createEventButtonLabel</property>
@@ -3600,8 +3597,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -3782,8 +3779,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">230</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">193</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -3964,8 +3961,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -4146,8 +4143,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -4328,8 +4325,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton" id="menubutton3">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -4510,8 +4507,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -4692,8 +4689,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -4874,8 +4871,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -5056,8 +5053,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -5238,8 +5235,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -5420,8 +5417,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -5602,8 +5599,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -5784,8 +5781,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -5966,8 +5963,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -6148,8 +6145,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -6330,8 +6327,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -6512,8 +6509,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -6694,8 +6691,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -6876,8 +6873,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -7058,8 +7055,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -7240,8 +7237,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -7422,8 +7419,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -7604,8 +7601,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -7786,8 +7783,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -7968,8 +7965,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -8150,8 +8147,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -8332,8 +8329,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -8514,8 +8511,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -8696,8 +8693,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -8878,8 +8875,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -9060,8 +9057,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -9242,8 +9239,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -9424,8 +9421,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -9606,8 +9603,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>
@@ -9788,8 +9785,8 @@ Please check!!!</property>
                         <child>
                           <object class="GtkMenuButton">
                             <property name="name">day</property>
-                            <property name="width-request">215</property>
-                            <property name="height-request">157</property>
+                            <property name="width-request">195</property>
+                            <property name="height-request">125</property>
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="focus-on-click">False</property>

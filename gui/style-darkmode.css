@@ -9,36 +9,36 @@
 }
 label{
     color: #fafafa;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 600;
 }
 #loginLabel{
     color: #fafafa;
-    font-size: 25px;
+    font-size: 22px;
 
 }
 #userName{
     color: #fafafa;
-    font-size: 30px;
+    font-size: 27px;
     font-weight: 600;
 }
 #createEventButton{
     border: solid 2px orange;
-    font-size: 25px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    font-size: 22px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     font-weight: bold;
 }
 
 #createEventButtonLabel{
     color: orange;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 600;
 }
 
 
 #createEventButton:checked{
-    font-size: 25px;
+    font-size: 22px;
     background: #585b60;
 }
 
@@ -101,7 +101,7 @@ button:hover{
 }
 
 popover{
-    border: 12px solid #313131;
+    border: 9px solid #313131;
     background-color: #313131;
     -webkit-box-shadow: 0 0 7px 0 #18191a;
     box-shadow: 0 0 6px 0 #18191a;
@@ -114,12 +114,12 @@ popover{
 #holidayLabel{
     background-color: #274521;
     color: #62b74a;
-    border-radius: 8px;
-    padding: 0 30px;
+    border-radius: 5px;
+    padding: 0 27px;
 }
 
 #dayinWeek{
-    font-size:40px;
+    font-size:37px;
     font-weight: 800;
     color: orange;
 }
@@ -132,30 +132,30 @@ popover{
 }
 
 slider{
-    border-radius: 8px;
+    border-radius: 5px;
 }
 switch{
-    border-radius: 8px;
+    border-radius: 5px;
 }
 switch:checked{
-    border-radius: 8px;
+    border-radius: 5px;
     background: orange;
 }
 
 #titleDate{
     color: #fafafa;
-    font-size: 50px;
+    font-size: 47px;
     font-weight: 900;
 }
 
 #titleYear{
     color: orange;
-    font-size: 40px;
+    font-size: 37px;
     font-weight: 700;
 }
 #date{
     color: #fafafa;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 700;
 }
 button:checked{
@@ -175,13 +175,13 @@ textview text {
 }
 #reviewEventTitle{
     color: #fafafa;
-    font-size: 30px;
+    font-size: 27px;
     font-weight: 700;
 }
 #cc{
     color: #fafafa;
     background-color: #e9e9e9 ;
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
 #day{

@@ -8,34 +8,37 @@
 }
 label{
     color: #727272;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 600;
 }
 #loginLabel{
     color: #6b6b6b;
-    font-size: 25px;
+    font-size: 22px;
 }
 #userName{
     color: #2e2f31;
-    font-size: 30px;
+    font-size: 27px;
     font-weight: 600;
 }
 #createEventButton{
     border-width: 2px;
     border: solid 2px #3584E4;
     color: #3584E4;
-    font-size: 25px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    font-size: 22px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     font-weight: bold;
 }
 
 #createEventButton:checked{
-    font-size: 25px;
+    font-size: 22px;
     background: #e7e6e6;
 }
 
-
+calendar{
+    background-color: #f5f5f5;
+    color: #262626;
+}
 button:hover{
     background: #f5f5f5;  
 }
@@ -101,7 +104,7 @@ button:checked{
 }
 
 popover{
-    border: 12px solid white;
+    border: 9px solid white;
     background-color: white;
     -webkit-box-shadow: 0px 0px 6px 0px #696969; 
     box-shadow: 0px 0px 6px 0px #696969;
@@ -114,46 +117,46 @@ popover{
 #holidayLabel{
     background-color: #dcf1d2;
     color: #6f9d51;
-    border-radius: 8px;
-    padding: 0 30px;
+    border-radius: 5px;
+    padding: 0 27px;
 }
 #dayinWeek{
-    font-size:40px;
+    font-size:37px;
     font-weight: 800;
     color: #3584E4;
 }
 slider{
-    border-radius: 8px;
+    border-radius: 5px;
 }
 switch{
-    border-radius: 8px;
+    border-radius: 5px;
 }
 switch:checked{
-    border-radius: 8px;
+    border-radius: 5px;
     background: #3584E4;
 }
 
 #titleDate{
     color: #2e2f31;
-    font-size: 50px;
+    font-size: 47px;
     font-weight: 900;
 }
 
 #titleYear{
     color: #3584E4;
-    font-size: 40px;
+    font-size: 37px;
     font-weight: 700;
 }
 
 #date{
     color: #2e2f31;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 700;
 }
 
 #reviewEventTitle{
     color: #2e2f31;
-    font-size: 30px;
+    font-size: 27px;
     font-weight: 700;
 }
 #controlButton{

@@ -540,7 +540,7 @@ bool isValidPassword(char *password) {
 	int leng = strlen(password);
 
 	//Check range
-	if (leng > 20 || leng < 1)
+	if (leng > 20 || leng < 6)
     	return false;
 
     //Check special character	

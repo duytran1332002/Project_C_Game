@@ -934,7 +934,7 @@ G_MODULE_EXPORT void on_darkModeBtn_state_set(int argc, char *argv[]) {
     fprintf(saveDarkMode, "%d", darkModeState);
     fclose(saveDarkMode);
 
-    gtk_widget_destroy(GTK_WIDGET(windowCalendar));
+    gtk_widget_destroy(windowCalendar);
     gtk_widget_destroy(todayEvent);
     showCalendarWindow(argc, argv);
 }
@@ -1451,10 +1451,13 @@ G_MODULE_EXPORT void on_dateBtn35_clicked() {
 // call to change to Sign in window
 G_MODULE_EXPORT void onClicked_sign_change(int argc, char *argv[])
 {
-    gtk_widget_destroy(GTK_WIDGET(windowLogin));
+    gtk_widget_destroy(windowLogin);
     showSignupWindow(argc, argv);
 }
-
+G_MODULE_EXPORT void on_todayEvent_destroy()
+{
+	gtk_main_quit();
+}
 // called when click login
 G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
 {
@@ -1462,6 +1465,7 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
     char userTxtLogin[128];
     char passTxtLogin[128];
 
+    gtk_init(&argc, &argv);
     // put text from entry to variable
     sprintf(userTxtLogin, "%s", gtk_entry_get_text(userEntryLogin));
     sprintf(passTxtLogin, "%s", gtk_entry_get_text(passEntryLogin));
@@ -1472,13 +1476,13 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
     if (!isValidUsernameTxt)
     {
         //Do something if username is invalid
-        gtk_label_set_text(GTK_LABEL(lbUserCorLogin), "*[a-z], [A-Z], number, size < 20");
+        gtk_label_set_text(GTK_LABEL(lbUserCorLogin), "*[a-z], [A-Z], number, 5 < size < 20");
 
     }
     else if (!isValidPasswordTxt)
     {
         //Do something if password is invalid
-        gtk_label_set_text(GTK_LABEL(lbPassCorLogin), "*[a-z], [A-Z], number, size < 20");
+        gtk_label_set_text(GTK_LABEL(lbPassCorLogin), "*[a-z], [A-Z], number, 6 < size < 20");
     }
     else {
         int status = userLogin(userTxtLogin, passTxtLogin);
@@ -1498,8 +1502,8 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
             }
             fclose(saveIDPointer);
             sprintf(currUserName, "%s", userTxtLogin);
-            gtk_widget_destroy(GTK_WIDGET(windowLogin));
-            gtk_widget_destroy(GTK_WIDGET(windowCalendar));
+            gtk_widget_destroy(windowLogin);
+            gtk_widget_destroy(windowCalendar);
             todayEventState = 0;
             showCalendarWindow(argc, argv);
 
@@ -1534,7 +1538,7 @@ G_MODULE_EXPORT void on_window_login_destroy()
 // call to change to Log in window
 G_MODULE_EXPORT void onClicked_login_change(int argc, char *argv[])
 {
-    gtk_widget_destroy(GTK_WIDGET(windowSign));
+    gtk_widget_destroy(windowSign);
     showLoginWindow(argc, argv);
 }
 
@@ -1561,12 +1565,12 @@ G_MODULE_EXPORT void onClicked_Signup()
     if (!isValidNameTxt)
     {
         //Do something if name is wrong
-        gtk_label_set_text(GTK_LABEL(lbNameCor), "*[a-z], [A-Z], size < 40");
+        gtk_label_set_text(GTK_LABEL(lbNameCor), "*[a-z], [A-Z], 1 < size < 40");
     }
     else if (!isValidUsernameTxt)
     {
         //Do something if username is wrong
-        gtk_label_set_text(GTK_LABEL(lbUserCor), "*[a-z], [A-Z], number, size < 20");
+        gtk_label_set_text(GTK_LABEL(lbUserCor), "*[a-z], [A-Z], number, 5 < size < 20");
     }
     else if (isUserNameExist)
     {
@@ -1576,7 +1580,7 @@ G_MODULE_EXPORT void onClicked_Signup()
     else if (!isValidPasswordTxt)
     {
         //Do something if password is wrong
-        gtk_label_set_text(GTK_LABEL(lbPassCor), "*[a-z], [A-Z], number, size < 20");
+        gtk_label_set_text(GTK_LABEL(lbPassCor), "*[a-z], [A-Z], number, 6 < size < 20");
     }
     else {
         if (strcmp(passTxtSign, confPassTxtSign) != 0)
@@ -1591,7 +1595,7 @@ G_MODULE_EXPORT void onClicked_Signup()
 
             if (registerNewAccount(user) == 1){
                 //Do something if register successfully
-                gtk_widget_destroy(GTK_WIDGET(windowSign));
+                gtk_widget_destroy(windowSign);
                 gtk_widget_show(dialogSuccess);
             }
         }
@@ -1662,13 +1666,13 @@ G_MODULE_EXPORT void onClicked_Login_Admin(int argc, char *argv[]){
     if (!isValidUsernameTxt)
     {
         //Do something if username is invalid
-        gtk_label_set_text(GTK_LABEL(lbUserCorAdmin), "*[a-z], [A-Z], number, size < 20");
+        gtk_label_set_text(GTK_LABEL(lbUserCorAdmin), "*[a-z], [A-Z], number, 5 < size < 20");
 
     }
     else if (!isValidPasswordTxt)
     {
         //Do something if password is invalid
-        gtk_label_set_text(GTK_LABEL(lbPassCorAdmin), "*[a-z], [A-Z], number, size < 20");
+        gtk_label_set_text(GTK_LABEL(lbPassCorAdmin), "*[a-z], [A-Z], number, 6 < size < 20");
     }
     else {
         int status = adminLogin(userTxtAdmin, passTxtAdmin);
@@ -1680,7 +1684,7 @@ G_MODULE_EXPORT void onClicked_Login_Admin(int argc, char *argv[]){
             gtk_label_set_text(GTK_LABEL(lbPassCorAdmin), "*wrong password");
         } else {
             //Do something if there is such account and right password
-            gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
+            gtk_widget_destroy(windowLoginAdmin);
             showManageUserWindow(argc, argv);
         }
     }
@@ -1746,7 +1750,7 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
     if (!isValidUsernameTxt)
     {
         //Do something if username is wrong
-        gtk_label_set_text(GTK_LABEL(lbUserCorUpdate), "*[a-z], [A-Z], number, size < 20");
+        gtk_label_set_text(GTK_LABEL(lbUserCorUpdate), "*[a-z], [A-Z], number, 5 < size < 20");
     }
     else if (isUserNameExist == true && strcmp(userTxtUpdate, userUpdate.username) != 0)
     {
@@ -1756,7 +1760,7 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
     else if (!isValidPasswordTxt)
     {
         //Do something if password is wrong
-        gtk_label_set_text(GTK_LABEL(lbPassCorUpdate), "*[a-z], [A-Z], number, size < 20");
+        gtk_label_set_text(GTK_LABEL(lbPassCorUpdate), "*[a-z], [A-Z], number, 6 < size < 20");
     }
     else {
         if (strcmp(passTxtUpdate, confPassTxtUpdate) != 0)
@@ -1767,8 +1771,8 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
         else {
             updateUsername(userUpdate.id, userTxtUpdate);
             updatePassword(userUpdate.id, passTxtUpdate);
-            gtk_widget_destroy(GTK_WIDGET(windowUpdate));
-            gtk_widget_destroy(GTK_WIDGET(windowCalendar));
+            gtk_widget_destroy(windowUpdate);
+            gtk_widget_destroy(windowCalendar);
             User userUpdateAgain = {};
             getUserByID(user.id, &userUpdateAgain);
             sprintf(currUserName, "%s", userUpdateAgain.username);
@@ -1854,7 +1858,7 @@ G_MODULE_EXPORT void on_btnSignout_clicked(int argc, char *argv[])
 }
 // call for successfull dialog
 G_MODULE_EXPORT void on_btnOk_clicked(int argc, char *argv[]){
-    gtk_widget_destroy(GTK_WIDGET(dialogSuccess));
+    gtk_widget_destroy(dialogSuccess);
     showLoginWindow(argc, argv);
 }
 
