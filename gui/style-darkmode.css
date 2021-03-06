@@ -5,7 +5,7 @@
 
 }
 #calendarSide{
-    background-color: #202124;
+    background-color: #262626;
 }
 label{
     color: #fafafa;
@@ -23,7 +23,6 @@ label{
     font-weight: 600;
 }
 #createEventButton{
-    border-width: 2px;
     border: solid 2px orange;
     font-size: 25px;
     padding-top: 10px;
@@ -102,10 +101,10 @@ button:hover{
 }
 
 popover{
-    border: 12px solid #2e2f31;
-    background-color: #2e2f31;
-    -webkit-box-shadow: 0px 0px 7px 0px #18191a; 
-    box-shadow: 0px 0px 6px 0px #18191a;
+    border: 12px solid #4A4A4A;
+    background-color: #313131;
+    -webkit-box-shadow: 0 0 7px 0 #18191a;
+    box-shadow: 0 0 6px 0 #18191a;
 }
 
 #confirmButton{
@@ -187,7 +186,7 @@ textview text {
 
 #day{
     border: solid 1px #3f3f3f;
-    border-radius: 0px;
+    border-radius: 0;
 }
 entry{    background: #585b60;
     color: #fafafa;}
