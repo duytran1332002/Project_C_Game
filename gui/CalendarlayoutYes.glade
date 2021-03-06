@@ -155,7 +155,7 @@
                     <property name="name">loginLabel</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Sign in</property>
+                    <property name="label" translatable="yes">Sign up</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -234,7 +234,6 @@
     <property name="default-height">370</property>
     <property name="type-hint">popup-menu</property>
     <property name="gravity">center</property>
-    <signal name="destroy" handler="on_todayEvent_destroy" swapped="no"/>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>

@@ -38,7 +38,6 @@
                 <property name="can-focus">False</property>
                 <child>
                   <object class="GtkTreeView">
-                    <property name="name">calendarSide</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="model">liststoreManage</property>

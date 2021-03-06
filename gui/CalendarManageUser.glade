@@ -38,7 +38,6 @@
                 <property name="can-focus">False</property>
                 <child>
                   <object class="GtkTreeView">
-                    <property name="name">calendarSide</property>
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="model">liststoreManage</property>
@@ -54,6 +53,7 @@
                         <property name="sizing">autosize</property>
                         <property name="fixed-width">34</property>
                         <property name="title" translatable="yes">ID</property>
+                        <property name="clickable">True</property>
                         <child>
                           <object class="GtkCellRendererText" id="renderID"/>
                         </child>
@@ -64,6 +64,7 @@
                         <property name="resizable">True</property>
                         <property name="fixed-width">150</property>
                         <property name="title" translatable="yes">Username</property>
+                        <property name="clickable">True</property>
                         <child>
                           <object class="GtkCellRendererText" id="renderUsername"/>
                           <attributes>
@@ -78,6 +79,7 @@
                         <property name="resizable">True</property>
                         <property name="fixed-width">250</property>
                         <property name="title" translatable="yes">Name</property>
+                        <property name="clickable">True</property>
                         <child>
                           <object class="GtkCellRendererText" id="renderName"/>
                         </child>
@@ -87,6 +89,7 @@
                       <object class="GtkTreeViewColumn" id="colPass">
                         <property name="resizable">True</property>
                         <property name="title" translatable="yes">Passwword</property>
+                        <property name="clickable">True</property>
                         <child>
                           <object class="GtkCellRendererText" id="renderPass"/>
                         </child>

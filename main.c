@@ -934,7 +934,7 @@ G_MODULE_EXPORT void on_darkModeBtn_state_set(int argc, char *argv[]) {
     fprintf(saveDarkMode, "%d", darkModeState);
     fclose(saveDarkMode);
 
-    gtk_widget_destroy(windowCalendar);
+    gtk_widget_destroy(GTK_WIDGET(windowCalendar));
     gtk_widget_destroy(todayEvent);
     showCalendarWindow(argc, argv);
 }
@@ -1451,13 +1451,10 @@ G_MODULE_EXPORT void on_dateBtn35_clicked() {
 // call to change to Sign in window
 G_MODULE_EXPORT void onClicked_sign_change(int argc, char *argv[])
 {
-    gtk_widget_destroy(windowLogin);
+    gtk_widget_destroy(GTK_WIDGET(windowLogin));
     showSignupWindow(argc, argv);
 }
-G_MODULE_EXPORT void on_todayEvent_destroy()
-{
-	gtk_main_quit();
-}
+
 // called when click login
 G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
 {
@@ -1465,7 +1462,6 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
     char userTxtLogin[128];
     char passTxtLogin[128];
 
-    gtk_init(&argc, &argv);
     // put text from entry to variable
     sprintf(userTxtLogin, "%s", gtk_entry_get_text(userEntryLogin));
     sprintf(passTxtLogin, "%s", gtk_entry_get_text(passEntryLogin));
@@ -1488,7 +1484,7 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
         int status = userLogin(userTxtLogin, passTxtLogin);
 
         if (status == -1) {
-            gtk_label_set_text(GTK_LABEL(lbUserCorLogin), "*have not account");
+            gtk_label_set_text(GTK_LABEL(lbUserCorLogin), "*this account does not exist");
         } else if (status == 0) {
             //Do something if there is such account but wrong password
             gtk_label_set_text(GTK_LABEL(lbPassCorLogin), "*wrong password");
@@ -1502,8 +1498,8 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
             }
             fclose(saveIDPointer);
             sprintf(currUserName, "%s", userTxtLogin);
-            gtk_widget_destroy(windowLogin);
-            gtk_widget_destroy(windowCalendar);
+            gtk_widget_destroy(GTK_WIDGET(windowLogin));
+            gtk_widget_destroy(GTK_WIDGET(windowCalendar));
             todayEventState = 0;
             showCalendarWindow(argc, argv);
 
@@ -1538,7 +1534,7 @@ G_MODULE_EXPORT void on_window_login_destroy()
 // call to change to Log in window
 G_MODULE_EXPORT void onClicked_login_change(int argc, char *argv[])
 {
-    gtk_widget_destroy(windowSign);
+    gtk_widget_destroy(GTK_WIDGET(windowSign));
     showLoginWindow(argc, argv);
 }
 
@@ -1595,7 +1591,7 @@ G_MODULE_EXPORT void onClicked_Signup()
 
             if (registerNewAccount(user) == 1){
                 //Do something if register successfully
-                gtk_widget_destroy(windowSign);
+                gtk_widget_destroy(GTK_WIDGET(windowSign));
                 gtk_widget_show(dialogSuccess);
             }
         }
@@ -1678,13 +1674,13 @@ G_MODULE_EXPORT void onClicked_Login_Admin(int argc, char *argv[]){
         int status = adminLogin(userTxtAdmin, passTxtAdmin);
 
         if (status == -1) {
-            gtk_label_set_text(GTK_LABEL(lbUserCorAdmin), "*have not account");
+            gtk_label_set_text(GTK_LABEL(lbUserCorAdmin), "*this account does not exist");
         } else if (status == 0) {
             //Do something if there is such account but wrong password
             gtk_label_set_text(GTK_LABEL(lbPassCorAdmin), "*wrong password");
         } else {
             //Do something if there is such account and right password
-            gtk_widget_destroy(windowLoginAdmin);
+            gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
             showManageUserWindow(argc, argv);
         }
     }
@@ -1771,8 +1767,8 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
         else {
             updateUsername(userUpdate.id, userTxtUpdate);
             updatePassword(userUpdate.id, passTxtUpdate);
-            gtk_widget_destroy(windowUpdate);
-            gtk_widget_destroy(windowCalendar);
+            gtk_widget_destroy(GTK_WIDGET(windowUpdate));
+            gtk_widget_destroy(GTK_WIDGET(windowCalendar));
             User userUpdateAgain = {};
             getUserByID(user.id, &userUpdateAgain);
             sprintf(currUserName, "%s", userUpdateAgain.username);
@@ -1816,17 +1812,21 @@ G_MODULE_EXPORT void on_btnViewConfUpdate_released()
     gtk_entry_set_visibility(confPassEntryUpdate, FALSE);
 }
 // delete user
-G_MODULE_EXPORT void on_btnDelete_clicked()
+G_MODULE_EXPORT void on_btnDelete_clicked(int argc, char *argv[])
 {
     User userDelete = {};
     User userGet = {};
     GtkTreeIter iter;
-
+    bool check = false;
     char txtID[128];
     char txtUsername[128];
     char txtName[128];
     char txtPass[128];
     getUserByUsername(manageUsername, &userDelete);
+    if(user.id == userDelete.id){
+    	check = true;
+    }
+    deleteUserByID(userDelete.id);
     deleteUser(&userDelete);
     int numUserID = getLastUserID();
     gtk_list_store_clear(liststoreManage);
@@ -1843,22 +1843,39 @@ G_MODULE_EXPORT void on_btnDelete_clicked()
         gtk_list_store_set (liststoreManage, &iter, 2, txtName, -1);
         gtk_list_store_set (liststoreManage, &iter, 3, txtPass, -1);
     }
+    if(check){
+    	
+    	sprintf(currUserName, "%s", "Username");
+    	user.id = 0;
+    	saveIDPointer = fopen(SAVE_ID, "w");
+    	fprintf(saveIDPointer, "%d\n", user.id);
+    	fclose(saveIDPointer);
+    	gtk_widget_destroy(windowCalendar);
+    	showCalendarWindow(argc, argv);
+    }
 
 }
 // Sign out event
 G_MODULE_EXPORT void on_btnSignout_clicked(int argc, char *argv[])
 {
-    user.id = 0;
-    sprintf(currUserName, "%s", "Username");
-    saveIDPointer = fopen(SAVE_ID, "w");
-    fprintf(saveIDPointer, "%d\n", user.id);
-    fclose(saveIDPointer);
-    gtk_widget_destroy(windowCalendar);
-    showCalendarWindow(argc, argv);
+	if (user.id == 0)
+	{
+		return;
+	}else
+	{
+		user.id = 0;
+    	sprintf(currUserName, "%s", "Username");
+    	saveIDPointer = fopen(SAVE_ID, "w");
+    	fprintf(saveIDPointer, "%d\n", user.id);
+    	fclose(saveIDPointer);
+    	gtk_widget_destroy(windowCalendar);
+    	showCalendarWindow(argc, argv);
+	}
+    
 }
 // call for successfull dialog
 G_MODULE_EXPORT void on_btnOk_clicked(int argc, char *argv[]){
-    gtk_widget_destroy(dialogSuccess);
+    gtk_widget_destroy(GTK_WIDGET(dialogSuccess));
     showLoginWindow(argc, argv);
 }
 

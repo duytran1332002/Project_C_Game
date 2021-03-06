@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "UserLogin.h"
 FILE *fptr;
 
 char *holidayList[] = {
@@ -285,7 +286,7 @@ void clearEvent(int day, int month, int year, int eventID, int userID)
 				strcat(fetchedInformation[numOfLines], "\n");
 			}
 		}
-	} 
+	}
 
 	fclose(fptr);
 	if (flag == 1) {
@@ -298,6 +299,46 @@ void clearEvent(int day, int month, int year, int eventID, int userID)
 	}
 	return;
 }
+
+void deleteUserByID(int userID) {
+    char fileName[30];
+	strcpy(fileName, "data/userEvent/user");
+	char IDstr[2];
+	sprintf(IDstr, "%d", userID);
+	strcat(fileName, IDstr);
+	strcat(fileName, ".dat");
+    remove(fileName);
+    int lastID = getLastUserID();
+    for (int i = userID + 1; i <= lastID; i++) {
+        char fileName1[30];
+        strcpy(fileName1, "data/userEvent/user");
+        char IDstr1[2];
+        sprintf(IDstr1, "%d", i);
+        strcat(fileName1, IDstr1);
+        strcat(fileName1, ".dat");
+        // kiem tra file co ton tai
+        if ((fptr = fopen(fileName1, "r"))) {
+            fclose(fptr);
+            //dat ten moi
+            char fileName2[30];
+            strcpy(fileName2, "data/userEvent/user");
+            char IDstr2[2];
+            sprintf(IDstr2, "%d", i - 1);
+            strcat(fileName2, IDstr2);
+            strcat(fileName2, ".dat");
+            rename(fileName1, fileName2);
+        }
+    }
+
+
+}
+
+
+
+
+
+
+
 
 
 
