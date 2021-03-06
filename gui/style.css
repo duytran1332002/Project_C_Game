@@ -186,3 +186,24 @@ entry{
     color: #2e2f31;
 }
 
+#notification.popup{
+    border: solid  1px #dbdbdb;
+    -webkit-box-shadow: 0px 0px 6px 0px #696969; 
+    box-shadow: 0px 0px 6px 0px #696969;
+}
+
+
+calendar{
+    background-color: white;
+}
+calendar.highlight {
+    color: #d45f4a
+}
+calendar:selected
+{
+	background-color: #3584E4;
+}
+
+calendar.date{
+    color: #d45f4a
+}

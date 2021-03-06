@@ -228,18 +228,17 @@
   <object class="GtkWindow" id="todayEvent">
     <property name="name">notification</property>
     <property name="can-focus">False</property>
-    <property name="type">popup</property>
     <property name="resizable">False</property>
     <property name="window-position">center</property>
     <property name="default-width">500</property>
     <property name="default-height">370</property>
-    <property name="type-hint">notification</property>
+    <property name="type-hint">popup-menu</property>
     <property name="gravity">center</property>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="border-width">20</property>
+        <property name="border-width">30</property>
         <property name="orientation">vertical</property>
         <property name="spacing">22</property>
         <child>
@@ -782,7 +781,6 @@ Please check!!!</property>
         <property name="year">2021</property>
         <property name="month">2</property>
         <property name="day">9</property>
-        <property name="show-week-numbers">True</property>
         <signal name="day-selected" handler="on_popupCalendar_day_selected" swapped="no"/>
       </object>
     </child>
@@ -1657,7 +1655,6 @@ Please check!!!</property>
     <property name="name">sidebarBackground</property>
     <property name="can-focus">False</property>
     <property name="border-width">0</property>
-    <property name="type">popup</property>
     <property name="resizable">False</property>
     <signal name="destroy" handler="on_window_calendar_destroy" swapped="no"/>
     <child>
