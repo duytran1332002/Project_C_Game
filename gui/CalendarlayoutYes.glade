@@ -226,16 +226,22 @@
     </child>
   </object>
   <object class="GtkWindow" id="todayEvent">
-    <property name="name">calendarSide</property>
+    <property name="name">notification</property>
     <property name="can-focus">False</property>
+    <property name="type">popup</property>
     <property name="resizable">False</property>
+    <property name="window-position">center</property>
     <property name="default-width">500</property>
     <property name="default-height">370</property>
+    <property name="type-hint">notification</property>
+    <property name="gravity">center</property>
     <child>
-      <object class="GtkFixed">
-        <property name="name">caLendarSide</property>
+      <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
+        <property name="border-width">20</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">22</property>
         <child>
           <object class="GtkImage">
             <property name="width-request">230</property>
@@ -245,16 +251,19 @@
             <property name="pixbuf">notification_immage.png</property>
           </object>
           <packing>
-            <property name="x">132</property>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
           <object class="GtkLabel">
-            <property name="width-request">436</property>
-            <property name="height-request">80</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes">You have some events for to day
+            <property name="halign">center</property>
+            <property name="margin-start">30</property>
+            <property name="margin-end">30</property>
+            <property name="label" translatable="yes">You have some events for today
 Please check!!!</property>
             <property name="justify">center</property>
             <attributes>
@@ -263,60 +272,77 @@ Please check!!!</property>
             </attributes>
           </object>
           <packing>
-            <property name="x">44</property>
-            <property name="y">221</property>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btnShowNoti">
-            <property name="width-request">73</property>
-            <property name="height-request">38</property>
+          <object class="GtkBox">
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="relief">half</property>
-            <signal name="clicked" handler="on_btnShowNoti_clicked" swapped="no"/>
+            <property name="can-focus">False</property>
+            <property name="halign">center</property>
+            <property name="spacing">26</property>
+            <property name="homogeneous">True</property>
             <child>
-              <object class="GtkLabel" id="lbShowEvent1">
+              <object class="GtkButton" id="btnCancelNoti">
+                <property name="width-request">73</property>
+                <property name="height-request">39</property>
                 <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Show</property>
-                <attributes>
-                  <attribute name="font-desc" value="Sans Bold 12"/>
-                  <attribute name="foreground" value="#e6e661610000"/>
-                </attributes>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <signal name="clicked" handler="on_btnCancelNoti_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkLabel" id="lbShowEvent2">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="ypad">13</property>
+                    <property name="label" translatable="yes">Cancel</property>
+                    <property name="width-chars">10</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Sans Bold 12"/>
+                      <attribute name="foreground" value="#e6e661610000"/>
+                    </attributes>
+                  </object>
+                </child>
               </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnShowNoti">
+                <property name="width-request">73</property>
+                <property name="height-request">38</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <signal name="clicked" handler="on_btnShowNoti_clicked" swapped="no"/>
+                <child>
+                  <object class="GtkLabel" id="lbShowEvent1">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label" translatable="yes">Show</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Sans Bold 12"/>
+                      <attribute name="foreground" value="#e6e661610000"/>
+                    </attributes>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
             </child>
           </object>
           <packing>
-            <property name="x">270</property>
-            <property name="y">311</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="btnCancelNoti">
-            <property name="width-request">73</property>
-            <property name="height-request">39</property>
-            <property name="visible">True</property>
-            <property name="can-focus">True</property>
-            <property name="receives-default">True</property>
-            <property name="relief">half</property>
-            <signal name="clicked" handler="on_btnCancelNoti_clicked" swapped="no"/>
-            <child>
-              <object class="GtkLabel" id="lbShowEvent2">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Cancel</property>
-                <attributes>
-                  <attribute name="font-desc" value="Sans Bold 12"/>
-                  <attribute name="foreground" value="#e6e661610000"/>
-                </attributes>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="x">155</property>
-            <property name="y">311</property>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
