@@ -1,6 +1,8 @@
 /* set background darkmode */
 #sidebarBackground{
-    background-color: #2e2f31;
+    background-color: rgba(47, 48, 50, 0.95);
+    background-image: linear-gradient(to right, rgba(47, 48, 50, .3), rgba(47, 48, 50, 0.842));
+
 }
 #calendarSide{
     background-color: #202124;
@@ -11,8 +13,14 @@ label{
     font-weight: 600;
 }
 #loginLabel{
-    color: #6b6b6b;
-    font-size: 20px;
+    color: #fafafa;
+    font-size: 25px;
+
+}
+#userName{
+    color: #fafafa;
+    font-size: 30px;
+    font-weight: 600;
 }
 #createEventButton{
     border-width: 2px;
@@ -29,40 +37,59 @@ label{
     font-weight: 600;
 }
 
-#createEventButton:hover{
-    font-size: 25px;
-    background: #585b60;
-}
+
 #createEventButton:checked{
     font-size: 25px;
     background: #585b60;
 }
 
 button:hover{
-    opacity: 0.1;
+    background: rgba(88, 91, 96, 0.5);
+    border-color: transparent;
 }
-
+/* =================== */
 
 #importantCheck:checked {
-    color: white;
     background: #d45f4a;
 }
 #workCheck:checked{
-    color: white;
     background: #f5c445;
 }
 #reminderCheck:checked{
-    color: white;
     background: #4facf2;
 }
-#taskCheck:checked{
-    color: white;
-    background: #b05fd1;
+#holidayCheck:checked{
+    background: #6f9d51;
 }
 
-#boxFrame{
-    border: solid 1px #3f3f3f;
+
+#importantCheck:hover {
+    opacity: 0.8;
+    background: #d45f4a;
+
 }
+#workCheck:hover{
+    opacity: 0.8;
+    background: #f5c445;
+
+
+}
+#reminderCheck:hover{
+    opacity: 0.8;
+    background: #4facf2;
+
+
+}
+#holidayCheck:hover{
+    opacity: 0.8;
+    background: #6f9d51;
+
+}
+/* ==================== */
+
+/* #boxFrame{
+    border: solid 1px #3f3f3f;
+} */
 
 #importantLable{
     background: #d45f4a;
@@ -89,7 +116,7 @@ popover{
     background-color: #274521;
     color: #62b74a;
     border-radius: 8px;
-    padding: 0 40px;
+    padding: 0 30px;
 }
 
 #dayinWeek{
@@ -158,11 +185,9 @@ textview text {
     border-radius: 8px;
 }
 
-stackswitcher {
-    background: #585b60;
+#day{
+    border: solid 1px #3f3f3f;
+    border-radius: 0px;
 }
-stackswitcher:hover{
-    background: #585b60;
-    color: #fafafa;
-    opacity: 0;
-}
+entry{    background: #585b60;
+    color: #fafafa;}

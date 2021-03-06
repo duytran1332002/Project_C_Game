@@ -7,7 +7,7 @@ char *holidayList[] = {
 	"Lunar New Year",
 	"Hung King Fest",
 	"Mid-year Fest",
-	"Mid-autumn Fest",
+	"Moon Fest",
 	"Kitchen Guar",
 	"New Year",
 	"Valentine's Day",
@@ -111,7 +111,7 @@ void setEvent(int day, int month, int year, const char* eventTitle, char* eventC
 		tempInfo1 = strtok(tempInfo, "\n");
 		strcpy(fetchedInformation[numOfLines], tempInfo1);
 		int i = 0, j = 0;
-        char *tokens[40];
+        char *tokens[100];
         char *token;
 
         token = strtok(tempInfo1, "-");
@@ -197,7 +197,7 @@ char* getTaskbyDate(int userID, int day, int month, int year)
 		tempInfo1 = strtok(tempInfo, "");
 		strcpy(fetchedInformation[numOfLines], tempInfo1);
 		int i = 0, j = 0;
-        char *tokens[40];
+        char *tokens[100];
         char *token;
 
         token = strtok(tempInfo1, "-");
@@ -246,7 +246,7 @@ void clearEvent(int day, int month, int year, int eventID, int userID)
 		numOfLines++;
 		strcpy(fetchedInformation[numOfLines], tempInfo);
 		int i = 0, j = 0;
-        char *tokens[40];
+        char *tokens[100];
         char *token;
 
         token = strtok(tempInfo, "-");
@@ -285,7 +285,7 @@ void clearEvent(int day, int month, int year, int eventID, int userID)
 				strcat(fetchedInformation[numOfLines], "\n");
 			}
 		}
-	}
+	} 
 
 	fclose(fptr);
 	if (flag == 1) {

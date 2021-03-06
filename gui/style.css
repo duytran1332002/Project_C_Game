@@ -1,6 +1,7 @@
 
 #sidebarBackground{
-    background-color: #f5f5f5;
+    background-color: rgba(255, 255, 255, 0.91);
+    background-image: linear-gradient(to right, rgba(254, 254, 254, .3), rgba(254, 254, 254, 0.842));
 }
 #calendarSide{
     background-color: white;
@@ -12,7 +13,12 @@ label{
 }
 #loginLabel{
     color: #6b6b6b;
-    font-size: 20px;
+    font-size: 25px;
+}
+#userName{
+    color: #2e2f31;
+    font-size: 30px;
+    font-weight: 600;
 }
 #createEventButton{
     border-width: 2px;
@@ -24,36 +30,65 @@ label{
     font-weight: bold;
 }
 
-#createEventButton:hover{
-    color: #d45f4a;
+#createEventButton:checked{
     font-size: 25px;
+    background: #e7e6e6;
 }
+
 
 button:hover{
-    opacity: 0.8;
+    background: #f5f5f5;  
+}
+button:checked{
+    background: #f5f5f5;
 }
 
 
+
+/* =================== */
+
 #importantCheck:checked {
-    color: white;
     background: #d45f4a;
 }
 #workCheck:checked{
-    color: white;
     background: #f5c445;
 }
 #reminderCheck:checked{
-    color: white;
     background: #4facf2;
 }
-#taskCheck:checked{
-    color: white;
-    background: #b05fd1;
+#holidayCheck:checked{
+    background: #6f9d51;
 }
 
-#boxFrame{
-    border: solid 1px #dbdbdb;
+
+#importantCheck:hover {
+    opacity: 0.8;
+    background: #d45f4a;
+
 }
+#workCheck:hover{
+    opacity: 0.8;
+    background: #f5c445;
+
+
+}
+#reminderCheck:hover{
+    opacity: 0.8;
+    background: #4facf2;
+
+}
+#holidayCheck:hover{
+    opacity: 0.8;
+    background: #6f9d51;
+
+}
+
+/* ==================== */
+
+
+/* #boxFrame{
+    border: solid 1px #dbdbdb;
+} */
 
 #importantLable{
     background: #d45f4a;
@@ -80,7 +115,7 @@ popover{
     background-color: #dcf1d2;
     color: #6f9d51;
     border-radius: 8px;
-    padding: 0 40px;
+    padding: 0 30px;
 }
 #dayinWeek{
     font-size:40px;
@@ -124,4 +159,29 @@ switch:checked{
 #controlButton{
     background-color: #f5f5f5;
     border: 1.5px solid #dbdbdb;
+}
+#controlButton:hover{
+    background-color: #e7e6e6;
+}
+textview text {
+    background-color: #f5f5f5;
+    color: #2e2f31;
+}
+#entryTitle{
+    background: #f5f5f5;
+    color: #2e2f31;
+}
+
+/* ////////====== */
+#day{
+    border: solid 1px #dbdbdb;
+    border-radius: 0px;
+}
+
+entry{
+    background: #f5f5f5;
+    color: #2e2f31;
+}
+#icon{
+    color: #2e2f31;
 }

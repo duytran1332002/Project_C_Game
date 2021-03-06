@@ -66,7 +66,6 @@ GtkWidget *lbConfCorUpdate;
 GtkWidget *windowManage;
 // successfull dialog
 GtkWidget *dialogSuccess;
-GtkWidget *dialogSuccessUpdate;
 // Sign Up
 GtkWidget *windowSign;
 GtkEntry *nameEntrySign;
@@ -85,6 +84,7 @@ GtkWidget *evenTitleInput;
 GtkWidget *eventContentInput;
 GtkWidget *dateEventInput;
 GtkWidget *createBtn;
+GtkWidget *lbValidateEvent;
 GtkTextBuffer *createEventBuf;
 int importantCheck, reminderCheck, workCheck;
 //Review event
@@ -96,7 +96,10 @@ GtkWidget *reminderLbl;
 GtkWidget *workTitle;
 GtkWidget *workLbl;
 GtkWidget *dateLbl1, *dateLbl2, *dateLbl3;
+GtkWidget *lbNumberImportant, *lbNumberWork, *lbNumberReminder;
 //Show evnt on main window
+GtkWidget *todayEvent;
+int todayEventState = 0;
 GtkWidget *lbImportant[37];
 GtkWidget *lbReminder[37];
 GtkWidget *lbWork[37];
@@ -107,6 +110,8 @@ int darkModeState;
 
 // File save id
 FILE *saveIDPointer;
+FILE *saveDarkMode;
+const char SAVE_DARKMODE[] = "data/saveDarkModeState.dat";
 const char SAVE_ID[] = "data/SaveID.dat";
 //=============Load css function=================
 static void load_css(void)
@@ -128,7 +133,7 @@ static void load_css(void)
     ///***
     g_object_unref (provider);
  }
- static void load_css_dark_mode(void)
+static void load_css_dark_mode(void)
 {
     GtkCssProvider *provider;
     GdkDisplay *display;
@@ -149,14 +154,28 @@ static void load_css(void)
  }
 
 //====================
+ static void checkTodayEvent(int currentDay) {
+
+    if (user.id > 0) {
+        char* strTask1 = getTaskbyDate(user.id, currentDay, currentMonth, currentYear);
+        if (strlen(strTask1) > 5) {
+        	gtk_widget_show(todayEvent);
+        }
+    }
+
+
+}
 static void showEventReview(int currentDay) {
     curReminderID = 0, curImportantID = 0, curWorkID = 0;
     curReviewWindow = currentDay;
+    gtk_label_set_text(GTK_LABEL(lbNumberReminder), "");
+    gtk_label_set_text(GTK_LABEL(lbNumberImportant), "");
+    gtk_label_set_text(GTK_LABEL(lbNumberWork), "");
+
     if (currentDay == 0) {
         gtk_label_set_text(GTK_LABEL(dateLbl1), "");
         gtk_label_set_text(GTK_LABEL(dateLbl2), "");
         gtk_label_set_text(GTK_LABEL(dateLbl3), "");
-
     } else {
         char dateStr[12], buf[5];
         sprintf(buf, "%d", currentDay);
@@ -168,7 +187,7 @@ static void showEventReview(int currentDay) {
         sprintf(buf, "%d", currentYear);
         strcat(dateStr, buf);
         for (int i = 0; i < strlen(dateStr); i++) {
-            if (dateStr[i] < '\n' || dateStr[i] > '~') {
+            if (dateStr[i] < '.' || dateStr[i] > ':') {
                 dateStr[i] = ' ';
             }
         }
@@ -178,8 +197,8 @@ static void showEventReview(int currentDay) {
         gtk_label_set_text(GTK_LABEL(dateLbl3), dateStr);
 
     }
-    if (currentDay != 0) {
-        char* strTask1 = getTaskbyDate(3, currentDay, currentMonth, currentYear);
+    if (currentDay != 0 && user.id > 0) {
+        char* strTask1 = getTaskbyDate(user.id, currentDay, currentMonth, currentYear);
         int i = 0;
         char *tokens[40];
         char *token;
@@ -189,7 +208,7 @@ static void showEventReview(int currentDay) {
             i++;
             token = strtok(NULL, "-");
         }
-        int importantList[10], reminderList[10], workList[10];
+        int importantList[30], reminderList[30], workList[30];
         int maxImportant = 0, maxReminder = 0, maxWork = 0;
         for (int tokenIndex = 1; tokenIndex < i; tokenIndex+=3) {
             if (strcmp(tokens[tokenIndex], "3") == 0) {
@@ -215,7 +234,14 @@ static void showEventReview(int currentDay) {
                     tempoStr[j] = '\n';
                 }
             }
+            char numStr[30], buf[5];
+            sprintf(numStr, "%d", curImportant);
+            strcat(numStr, "/");
+            sprintf(buf, "%d", maxImportant);
+            strcat(numStr, buf);
+            strcat(numStr, " important event");
             gtk_label_set_text(GTK_LABEL(importantLbl), tempoStr);
+            gtk_label_set_text(GTK_LABEL(lbNumberImportant), numStr);
         } else {
             gtk_label_set_text(GTK_LABEL(importantTitle), "There is no important event today");
             gtk_label_set_text(GTK_LABEL(importantLbl), "");
@@ -232,6 +258,13 @@ static void showEventReview(int currentDay) {
                     tempoStr[j] = '\n';
                 }
             }
+            char numStr[30], buf[5];
+            sprintf(numStr, "%d", curReminder);
+            strcat(numStr, "/");
+            sprintf(buf, "%d", maxReminder);
+            strcat(numStr, buf);
+            strcat(numStr, " reminder event");
+            gtk_label_set_text(GTK_LABEL(lbNumberReminder), numStr);
             gtk_label_set_text(GTK_LABEL(reminderLbl), tempoStr);
         } else {
             gtk_label_set_text(GTK_LABEL(reminderTitle), "There is no reminder event today");
@@ -249,6 +282,13 @@ static void showEventReview(int currentDay) {
                     tempoStr[j] = '\n';
                 }
             }
+            char numStr[30], buf[5];
+            sprintf(numStr, "%d", curWork);
+            strcat(numStr, "/");
+            sprintf(buf, "%d", maxWork);
+            strcat(numStr, buf);
+            strcat(numStr, " work event");
+            gtk_label_set_text(GTK_LABEL(lbNumberWork), numStr);
             gtk_label_set_text(GTK_LABEL(workLbl), tempoStr);
         } else {
             gtk_label_set_text(GTK_LABEL(workTitle), "There is no work event today");
@@ -257,10 +297,20 @@ static void showEventReview(int currentDay) {
 
 
 
-    } else {
+    }
+    if (currentDay == 0 && user.id > 0) {
         gtk_label_set_text(GTK_LABEL(importantTitle), "Empty cell");
         gtk_label_set_text(GTK_LABEL(reminderTitle), "Empty cell");
         gtk_label_set_text(GTK_LABEL(workTitle), "Empty cell");
+        gtk_label_set_text(GTK_LABEL(importantLbl), "");
+        gtk_label_set_text(GTK_LABEL(reminderLbl), "");
+        gtk_label_set_text(GTK_LABEL(workLbl), "");
+
+    }
+    if (user.id == 0) {
+        gtk_label_set_text(GTK_LABEL(importantTitle), "Log in to see event");
+        gtk_label_set_text(GTK_LABEL(reminderTitle), "Log in to see event");
+        gtk_label_set_text(GTK_LABEL(workTitle), "Log in to see event");
         gtk_label_set_text(GTK_LABEL(importantLbl), "");
         gtk_label_set_text(GTK_LABEL(reminderLbl), "");
         gtk_label_set_text(GTK_LABEL(workLbl), "");
@@ -286,6 +336,7 @@ static void makeCalendar()
         gtk_label_set_text(GTK_LABEL(lbReminder[i]), "");
         gtk_label_set_text(GTK_LABEL(lbWork[i]), "");
         gtk_label_set_text(GTK_LABEL(holidayLbl[i]), "");
+        gtk_widget_hide(holidayLbl[i]);
     }
     LunarDate lnDate;
     for (int i = numEmptyDay + 1; i <= 35; i++)
@@ -294,20 +345,97 @@ static void makeCalendar()
         {
             gtk_label_set_text(GTK_LABEL(solarDay[i]), date[numDay]);
             gtk_label_set_text(GTK_LABEL(solarSmallDay[i]), date[numDay]);
-            gtk_label_set_text(GTK_LABEL(holidayLbl[i]), solarHolidayHandler(numDay, currentMonth));
-            lnDate = convertSolarToLunar(numDay, currentMonth, currentYear, 7.0);
-            if (lunarHolidayHandler(lnDate.day, lnDate.month) != "")
-                gtk_label_set_text(GTK_LABEL(holidayLbl[i]), lunarHolidayHandler(lnDate.day, lnDate.month));
+            if (solarHolidayHandler(numDay, currentMonth) != "") {
+                gtk_label_set_text(GTK_LABEL(holidayLbl[i]), solarHolidayHandler(numDay, currentMonth));
+                gtk_widget_show(holidayLbl[i]);
+            }
 
-            char str[] = "", strNum[10];
+            lnDate = convertSolarToLunar(numDay, currentMonth, currentYear, 7.0);
+            if (lunarHolidayHandler(lnDate.day, lnDate.month) != "") {
+                gtk_label_set_text(GTK_LABEL(holidayLbl[i]), lunarHolidayHandler(lnDate.day, lnDate.month));
+                gtk_widget_show(holidayLbl[i]);
+            }
+            char str[] = "", strNum[9];
+            int svMonth = lnDate.month;
+            int svDate = lnDate.day;
             sprintf(strNum, "%d", lnDate.day);
             strcat(str, strNum);
             sprintf(strNum, "%d ", lnDate.month);
             strcat(str, "/");
             strcat(str, strNum);
+            if (svDate == 1 && svMonth == 1 ) {
+            	strcat(str, "/");
+            	sprintf(strNum, "%d", lnDate.year);
+            	strcat(str, strNum);
+            }
             gtk_label_set_text(GTK_LABEL(lunarDay[i]), str);
             //event handle
-            char* strTask1 = getTaskbyDate(3, numDay, currentMonth, currentYear);
+            if (user.id > 0) {
+                char* strTask1 = getTaskbyDate(user.id, numDay, currentMonth, currentYear);
+                int ii = 0;
+                char *tokens[40];
+                char *token;
+                token = strtok(strTask1, "-");
+                while (token != NULL) {
+                    tokens[ii] = token;
+                    ii++;
+                    token = strtok(NULL, "-");
+                }
+                int maxImportant = 0, maxReminder = 0, maxWork = 0;
+                for (int tokenIndex = 1; tokenIndex < ii; tokenIndex+=3) {
+                    if (strcmp(tokens[tokenIndex], "3") == 0) {
+                        maxImportant++;
+                    } else if (strcmp(tokens[tokenIndex], "1") == 0) {
+                        maxReminder++;
+                    } else if (strcmp(tokens[tokenIndex], "2") == 0) {
+                        maxWork++;
+                    }
+                }
+                if (maxImportant > 0 && windowImportant == 1)
+                    gtk_label_set_text(GTK_LABEL(lbImportant[i]), ".");
+                if (maxReminder > 0 && windowReminder == 1)
+                    gtk_label_set_text(GTK_LABEL(lbReminder[i]), ".");
+                if (maxWork > 0 && windowWork == 1)
+                    gtk_label_set_text(GTK_LABEL(lbWork[i]), ".");
+
+            }
+
+            numDay++;
+
+        }
+    }
+    while (numDay <= maxDay[currentMonth - 1])
+    {
+        gtk_label_set_text(GTK_LABEL(solarDay[postDay]), date[numDay]);
+        gtk_label_set_text(GTK_LABEL(solarSmallDay[postDay]), date[numDay]);
+        if (solarHolidayHandler(numDay, currentMonth) != "") {
+            gtk_label_set_text(GTK_LABEL(holidayLbl[postDay]), solarHolidayHandler(numDay, currentMonth));
+            gtk_widget_show(holidayLbl[postDay]);
+        }
+
+        lnDate = convertSolarToLunar(numDay, currentMonth, currentYear, 7.0);
+        if (lunarHolidayHandler(lnDate.day, lnDate.month) != "") {
+            gtk_label_set_text(GTK_LABEL(holidayLbl[postDay]), lunarHolidayHandler(lnDate.day, lnDate.month));
+            gtk_widget_show(holidayLbl[postDay]);
+        }
+
+        char str[] = "", strNum[10];
+        sprintf(strNum, "%d", lnDate.day);
+        strcat(str, strNum);
+        sprintf(strNum, "%d ", lnDate.month);
+        strcat(str, "/");
+        strcat(str, strNum);
+        if (lnDate.day == 1 && lnDate.month == 1 ) {
+           	strcat(str, "/");
+            sprintf(strNum, "%d", lnDate.year);
+            strcat(str, strNum);
+        }
+
+        gtk_label_set_text(GTK_LABEL(lunarDay[postDay]), str);
+
+        //event handle
+        if (user.id > 0) {
+            char* strTask1 = getTaskbyDate(user.id, numDay, currentMonth, currentYear);
             int ii = 0;
             char *tokens[40];
             char *token;
@@ -327,64 +455,23 @@ static void makeCalendar()
                     maxWork++;
                 }
             }
-            if (maxImportant > 0 && windowImportant == 1)
-                gtk_label_set_text(GTK_LABEL(lbImportant[i]), ".");
-            if (maxReminder > 0 && windowReminder == 1)
-                gtk_label_set_text(GTK_LABEL(lbReminder[i]), ".");
-            if (maxWork > 0 && windowWork == 1)
-                gtk_label_set_text(GTK_LABEL(lbWork[i]), ".");
+            if (maxImportant > 0)
+                gtk_label_set_text(GTK_LABEL(lbImportant[postDay]), ".");
+            if (maxReminder > 0)
+                gtk_label_set_text(GTK_LABEL(lbReminder[postDay]), ".");
+            if (maxWork > 0)
+                gtk_label_set_text(GTK_LABEL(lbWork[postDay]), ".");
 
-
-            numDay++;
-
-        }
-    }
-    while (numDay <= maxDay[currentMonth - 1])
-    {
-        gtk_label_set_text(GTK_LABEL(solarDay[postDay]), date[numDay]);
-        gtk_label_set_text(GTK_LABEL(solarSmallDay[postDay]), date[numDay]);
-        gtk_label_set_text(GTK_LABEL(holidayLbl[postDay]), solarHolidayHandler(numDay, currentMonth));
-        lnDate = convertSolarToLunar(numDay, currentMonth, currentYear, 7.0);
-        if (lunarHolidayHandler(lnDate.day, lnDate.month) != "")
-            gtk_label_set_text(GTK_LABEL(holidayLbl[postDay]), lunarHolidayHandler(lnDate.day, lnDate.month));
-        char str[] = "", strNum[10];
-        sprintf(strNum, "%d", lnDate.day);
-        strcat(str, strNum);
-        sprintf(strNum, "%d", lnDate.month);
-        strcat(str, "/");
-        strcat(str, strNum);
-        gtk_label_set_text(GTK_LABEL(lunarDay[postDay]), str);
-
-        //event handle
-        char* strTask1 = getTaskbyDate(3, numDay, currentMonth, currentYear);
-        int ii = 0;
-        char *tokens[40];
-        char *token;
-        token = strtok(strTask1, "-");
-        while (token != NULL) {
-            tokens[ii] = token;
-            ii++;
-            token = strtok(NULL, "-");
-        }
-        int maxImportant = 0, maxReminder = 0, maxWork = 0;
-        for (int tokenIndex = 1; tokenIndex < ii; tokenIndex+=3) {
-            if (strcmp(tokens[tokenIndex], "3") == 0) {
-                maxImportant++;
-            } else if (strcmp(tokens[tokenIndex], "1") == 0) {
-                maxReminder++;
-            } else if (strcmp(tokens[tokenIndex], "2") == 0) {
-                maxWork++;
             }
-        }
-        if (maxImportant > 0)
-            gtk_label_set_text(GTK_LABEL(lbImportant[postDay]), ".");
-        if (maxReminder > 0)
-            gtk_label_set_text(GTK_LABEL(lbReminder[postDay]), ".");
-        if (maxWork > 0)
-            gtk_label_set_text(GTK_LABEL(lbWork[postDay]), ".");
 
         numDay++;
         postDay++;
+    }
+    if (todayEventState == 0) {
+  	    time_t t = time(NULL);
+  	    struct tm tm = *localtime(&t);
+		checkTodayEvent(tm.tm_mday);
+    	todayEventState = 1;
     }
 
 }
@@ -403,6 +490,7 @@ void showCalendarWindow(int argc, char *argv[])
     lbCurrentDate = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "lbCurrentDate"));
     lbUserName = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "lbUserName"));
     //widget for create event
+    todayEvent = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "todayEvent"));
     popupCalendar = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "popupCalendar"));
     dateEventInput = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "dateEventInput"));
     evenTitleInput = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "evenTitleInput"));
@@ -411,6 +499,8 @@ void showCalendarWindow(int argc, char *argv[])
     createEventBuf = GTK_TEXT_BUFFER(gtk_builder_get_object(builderCalendar, "createEventBuf"));
     popover3 = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "popover3"));
     cancelBtn = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "cancelBtn"));
+    lbValidateEvent = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "lbValidateEvent"));
+    gtk_label_set_text(GTK_LABEL(lbValidateEvent), "");
 
     //init state of check buttons
     importantCheck = 0, reminderCheck = 0, workCheck = 1;
@@ -427,6 +517,10 @@ void showCalendarWindow(int argc, char *argv[])
     reminderLbl = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "reminderLbl"));
     workTitle = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "workTitle"));
     workLbl = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "workLbl"));
+    lbNumberReminder = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "lbNumberReminder"));
+    lbNumberWork = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "lbNumberWork"));
+    lbNumberImportant = GTK_WIDGET(gtk_builder_get_object(builderCalendar, "lbNumberImportant"));
+
     // set text username label
     if(user.id != 0){
         g_print("%s", currUserName);
@@ -514,19 +608,20 @@ void showCalendarWindow(int argc, char *argv[])
     strcat(strd, strNumD);
     gtk_label_set_text(GTK_LABEL(lbCurrentDate), strd);
 
-    makeCalendar();
+    
 
     gtk_builder_connect_signals(builderCalendar, NULL);
 
     g_object_unref(builderCalendar);
 
     gtk_widget_show(windowCalendar);
+
     if (darkModeState == 0) {
         load_css();
     } else {
         load_css_dark_mode();
     }
-
+    makeCalendar();
     gtk_main();
 }
 void showLoginWindow(int argc, char *argv[])
@@ -673,9 +768,6 @@ void showUpdateWindow(int argc, char *argv[])
     lbUserCorUpdate = GTK_WIDGET(gtk_builder_get_object(builderUpdate, "lbUserCorUpdate"));
     lbPassCorUpdate = GTK_WIDGET(gtk_builder_get_object(builderUpdate, "lbPassCorUpdate"));
     lbConfCorUpdate = GTK_WIDGET(gtk_builder_get_object(builderUpdate, "lbConfCorUpdate"));
-    dialogSuccessUpdate = GTK_WIDGET(gtk_builder_get_object(builderUpdate, "dialogSuccessUpdate"));
-
-
     // User variable
     User userUpdate = {};
     char userUpdateTxt[128];
@@ -691,9 +783,9 @@ void showUpdateWindow(int argc, char *argv[])
     gtk_entry_set_text(userEntryUpdate, userUpdateTxt);
     gtk_entry_set_text(passEntryUpdate, passUpdateTxt);
     gtk_entry_set_text(confPassEntryUpdate, passUpdateTxt);
-   
 
-    
+
+
     gtk_builder_connect_signals(builderUpdate, NULL);
 
     g_object_unref(builderUpdate);
@@ -708,8 +800,30 @@ int main(int argc, char *argv[])
     getUserByID(user.id, &user);
     sprintf(currUserName, "%s", user.username);
     fclose(saveIDPointer);
+    saveDarkMode = fopen(SAVE_DARKMODE, "r");
+    fscanf(saveDarkMode, "%d", &darkModeState);
+    fclose(saveDarkMode);
     showCalendarWindow(argc, argv);
+
     return 0;
+}
+G_MODULE_EXPORT void on_createEventBuf_changed()
+{
+	gtk_label_set_text(GTK_LABEL(lbValidateEvent), "");
+}     
+G_MODULE_EXPORT void on_btnShowNoti_clicked()
+{
+	time_t t = time(NULL);
+  	struct tm tm = *localtime(&t);
+  	gtk_popover_popup(GTK_POPOVER(reviewEvent));
+	showEventReview(tm.tm_mday);  
+	gtk_widget_destroy(todayEvent);
+
+} 
+G_MODULE_EXPORT void on_btnCancelNoti_clicked()
+{
+	gtk_widget_destroy(todayEvent);
+
 }
 
 G_MODULE_EXPORT void on_window_calendar_destroy()
@@ -815,10 +929,22 @@ G_MODULE_EXPORT void on_btnToDay_clicked(){
 G_MODULE_EXPORT void on_darkModeBtn_state_set(int argc, char *argv[]) {
     if (darkModeState == 1) darkModeState = 0;
     else darkModeState = 1;
+
+    saveDarkMode = fopen(SAVE_DARKMODE, "w");
+    fprintf(saveDarkMode, "%d", darkModeState);
+    fclose(saveDarkMode);
+
     gtk_widget_destroy(GTK_WIDGET(windowCalendar));
+    gtk_widget_destroy(todayEvent);
     showCalendarWindow(argc, argv);
 }
 //EVENT WINDOW
+G_MODULE_EXPORT void on_showCurEvent_clicked() {
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    //gtk_popover_popup(GTK_POPOVER(reviewEvent));
+    showEventReview(tm.tm_mday);
+}
 G_MODULE_EXPORT void popdown() {
     gtk_popover_popdown(GTK_POPOVER(reviewEvent));
 }
@@ -853,7 +979,7 @@ G_MODULE_EXPORT void on_popupCalendar_day_selected() {
     strcat(dateStr, buf);
 
     for (int i = 0; i < strlen(dateStr); i++) {
-        if (dateStr[i] < '\n' || dateStr[i] > '~') {
+        if (dateStr[i] < '.' || dateStr[i] > ':') {
             dateStr[i] = ' ';
         }
     }
@@ -863,36 +989,45 @@ G_MODULE_EXPORT void on_cancelBtn_clicked() {
     gtk_popover_popdown(GTK_POPOVER(popover3));
 }
 G_MODULE_EXPORT void on_createBtn_clicked() {
-    int selectDay, selectMonth, selectYear;
-    gtk_calendar_get_date(GTK_CALENDAR(popupCalendar), &selectYear, &selectMonth, &selectDay);
-    const char* eventTitle = gtk_entry_get_text(GTK_ENTRY(evenTitleInput));
+    if (user.id > 0) {
+        int selectDay, selectMonth, selectYear;
+        gtk_calendar_get_date(GTK_CALENDAR(popupCalendar), &selectYear, &selectMonth, &selectDay);
+        const char* eventTitle = gtk_entry_get_text(GTK_ENTRY(evenTitleInput));
 
-    GtkTextIter start, end;
-    createEventBuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(eventContentInput));
-    gtk_text_buffer_get_bounds(createEventBuf, &start, &end);
-    char *eventContent = gtk_text_buffer_get_text(createEventBuf, &start, &end, FALSE);
-    for (int i = 0; i < strlen(eventContent); i++) {
-        if (eventContent[i] == '\n') {
-            eventContent[i] = '~';
+        GtkTextIter start, end;
+        createEventBuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(eventContentInput));
+        gtk_text_buffer_get_bounds(createEventBuf, &start, &end);
+        char *eventContent = gtk_text_buffer_get_text(createEventBuf, &start, &end, FALSE);
+        for (int i = 0; i < strlen(eventContent); i++) {
+            if (eventContent[i] == '\n') {
+                eventContent[i] = '~';
+            }
         }
-    }
-    if (strlen(eventContent) != 0 && strlen(eventTitle) != 0) {
+        if (strlen(eventContent) != 0 && strlen(eventTitle) != 0 && strlen(eventContent) < 40) {
+            gtk_label_set_text(GTK_LABEL(lbValidateEvent), "");
             int eventFeature = 0;
-        if (reminderCheck == 1) {
-            eventFeature = 1;
-        } else if (workCheck == 1) {
-            eventFeature = 2;
-        } else if (importantCheck == 1) {
-            eventFeature = 3;
-        }
-        //reminder - work - important
-        setEvent(selectDay, selectMonth + 1, selectYear, eventTitle, eventContent, eventFeature, 3);
-        gtk_text_buffer_set_text(createEventBuf, "", 0);
-        gtk_text_view_set_buffer(GTK_TEXT_VIEW(eventContentInput), createEventBuf);
-        gtk_entry_set_text(GTK_ENTRY(evenTitleInput), "");
-        gtk_popover_popdown(GTK_POPOVER(popover3));
-        makeCalendar();
+            if (reminderCheck == 1) {
+                eventFeature = 1;
+            } else if (workCheck == 1) {
+                eventFeature = 2;
+            } else if (importantCheck == 1) {
+                eventFeature = 3;
+            }
+            //reminder - work - important
+            setEvent(selectDay, selectMonth + 1, selectYear, eventTitle, eventContent, eventFeature, user.id);
+            gtk_text_buffer_set_text(createEventBuf, "", 0);
+            gtk_text_view_set_buffer(GTK_TEXT_VIEW(eventContentInput), createEventBuf);
+            gtk_entry_set_text(GTK_ENTRY(evenTitleInput), "");
+            gtk_popover_popdown(GTK_POPOVER(popover3));
+            makeCalendar();
 
+        } else {
+        	if (strlen(eventContent) > 40)
+        		gtk_label_set_text(GTK_LABEL(lbValidateEvent), "Size of desciption < 40");
+        	else gtk_label_set_text(GTK_LABEL(lbValidateEvent), "Fill in both title and description");
+        }	
+    } else {
+    	gtk_label_set_text(GTK_LABEL(lbValidateEvent), "Log in to create event");
     }
 
 }
@@ -919,8 +1054,8 @@ G_MODULE_EXPORT void on_upImportant_clicked() {
     showEventReview(curReviewWindow);
 }
 G_MODULE_EXPORT void on_clearImportant_clicked() {
-    if (curImportantID > 0) {
-        clearEvent(curReviewWindow, currentMonth, currentYear, curImportantID, 3);
+    if (curImportantID > 0 && user.id > 0) {
+        clearEvent(curReviewWindow, currentMonth, currentYear, curImportantID, user.id);
         curImportant--;
         showEventReview(curReviewWindow);
         makeCalendar();
@@ -935,8 +1070,8 @@ G_MODULE_EXPORT void on_upReminder_clicked() {
     showEventReview(curReviewWindow);
 }
 G_MODULE_EXPORT void on_clearReminder_clicked() {
-    if (curReminderID > 0) {
-        clearEvent(curReviewWindow, currentMonth, currentYear, curReminderID, 3);
+    if (curReminderID > 0 && user.id > 0) {
+        clearEvent(curReviewWindow, currentMonth, currentYear, curReminderID, user.id);
         curReminder--;
         showEventReview(curReviewWindow);
         makeCalendar();
@@ -951,8 +1086,8 @@ G_MODULE_EXPORT void on_upWork_clicked() {
     showEventReview(curReviewWindow);
 }
 G_MODULE_EXPORT void on_clearWork_clicked() {
-    if (curWorkID > 0) {
-        clearEvent(curReviewWindow, currentMonth, currentYear, curWorkID, 3);
+    if (curWorkID > 0 && user.id > 0) {
+        clearEvent(curReviewWindow, currentMonth, currentYear, curWorkID, user.id);
         curWork--;
         showEventReview(curReviewWindow);
         makeCalendar();
@@ -1358,14 +1493,16 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
             getUserByUsername(userTxtLogin, &user);
             saveIDPointer = fopen(SAVE_ID, "w");
             if (saveIDPointer != NULL) {
-                    
+
                 fprintf(saveIDPointer, "%d\n", user.id);
             }
             fclose(saveIDPointer);
             sprintf(currUserName, "%s", userTxtLogin);
             gtk_widget_destroy(GTK_WIDGET(windowLogin));
             gtk_widget_destroy(GTK_WIDGET(windowCalendar));
+            todayEventState = 0;
             showCalendarWindow(argc, argv);
+
 
         }
     }
@@ -1566,7 +1703,7 @@ G_MODULE_EXPORT void on_btnViewPassAdmin_released()
     gtk_entry_set_visibility(passEntryAdmin, FALSE);
 }
 //Manage window
-// when selected 
+// when selected
 G_MODULE_EXPORT void on_selection_changed()
 {
     gchar *value;
@@ -1592,12 +1729,12 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
     char userTxtUpdate[128];
     char passTxtUpdate[128];
     char confPassTxtUpdate[128];
-    
+
     // put text from entry to variable
     sprintf(userTxtUpdate, "%s", gtk_entry_get_text(userEntryUpdate));
     sprintf(passTxtUpdate, "%s", gtk_entry_get_text(passEntryUpdate));
     sprintf(confPassTxtUpdate, "%s", gtk_entry_get_text(confPassEntryUpdate));
-    
+
     //Check validation
     bool isValidUsernameTxt = isValidUsername(userTxtUpdate);
     bool isValidPasswordTxt = isValidPassword(passTxtUpdate);
@@ -1615,24 +1752,29 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
     {
         //Do something if username is wrong
         gtk_label_set_text(GTK_LABEL(lbUserCorUpdate), "*This username is already existed");
-    }    
+    }
     else if (!isValidPasswordTxt)
     {
         //Do something if password is wrong
         gtk_label_set_text(GTK_LABEL(lbPassCorUpdate), "*[a-z], [A-Z], number, size < 20");
-    }    
+    }
     else {
         if (strcmp(passTxtUpdate, confPassTxtUpdate) != 0)
         {
             //Do something if password doesn't match
             gtk_label_set_text(GTK_LABEL(lbConfCorUpdate), "*not same with confirm password");
-        }   
+        }
         else {
             updateUsername(userUpdate.id, userTxtUpdate);
             updatePassword(userUpdate.id, passTxtUpdate);
             gtk_widget_destroy(GTK_WIDGET(windowUpdate));
-            gtk_widget_show(dialogSuccessUpdate);
-            
+            gtk_widget_destroy(GTK_WIDGET(windowCalendar));
+            User userUpdateAgain = {};
+            getUserByID(user.id, &userUpdateAgain);
+            sprintf(currUserName, "%s", userUpdateAgain.username);
+            showCalendarWindow(argc, argv);
+
+
         }
     }
 }
@@ -1675,7 +1817,7 @@ G_MODULE_EXPORT void on_btnDelete_clicked()
     User userDelete = {};
     User userGet = {};
     GtkTreeIter iter;
-    
+
     char txtID[128];
     char txtUsername[128];
     char txtName[128];
@@ -1715,7 +1857,5 @@ G_MODULE_EXPORT void on_btnOk_clicked(int argc, char *argv[]){
     gtk_widget_destroy(GTK_WIDGET(dialogSuccess));
     showLoginWindow(argc, argv);
 }
-G_MODULE_EXPORT void on_btnOkUpdate_clicked(int argc, char *argv[]){
-    gtk_widget_destroy(GTK_WIDGET(dialogSuccessUpdate));
-    showLoginWindow(argc, argv);
-}
+
+

@@ -3,14 +3,16 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="window_login_Admin">
+    <property name="name">calendarSide</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Login window</property>
     <property name="resizable">False</property>
     <property name="default-width">470</property>
-    <property name="default-height">550</property>
+    <property name="default-height">500</property>
     <signal name="destroy" handler="on_window_admin_destroy" swapped="no"/>
     <child>
       <object class="GtkFixed">
+        <property name="name">calendarSide</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
@@ -45,15 +47,16 @@
         </child>
         <child>
           <object class="GtkImage">
-            <property name="width-request">100</property>
-            <property name="height-request">80</property>
+            <property name="name">cc</property>
+            <property name="width-request">50</property>
+            <property name="height-request">45</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="pixbuf">user-profile.png</property>
           </object>
           <packing>
-            <property name="x">57</property>
-            <property name="y">273</property>
+            <property name="x">80</property>
+            <property name="y">290</property>
           </packing>
         </child>
         <child>
@@ -72,15 +75,16 @@
         </child>
         <child>
           <object class="GtkImage">
-            <property name="width-request">100</property>
-            <property name="height-request">80</property>
+            <property name="name">cc</property>
+            <property name="width-request">51</property>
+            <property name="height-request">39</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="pixbuf">key.png</property>
           </object>
           <packing>
-            <property name="x">56</property>
-            <property name="y">348</property>
+            <property name="x">78</property>
+            <property name="y">370</property>
           </packing>
         </child>
         <child>
@@ -120,8 +124,8 @@
             </child>
           </object>
           <packing>
-            <property name="x">193</property>
-            <property name="y">459</property>
+            <property name="x">195</property>
+            <property name="y">437</property>
           </packing>
         </child>
         <child>
@@ -166,6 +170,7 @@
             <signal name="released" handler="on_btnViewPassAdmin_released" swapped="no"/>
             <child>
               <object class="GtkImage">
+                <property name="name">cc</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="pixbuf">view.png</property>

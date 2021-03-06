@@ -3,6 +3,7 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkDialog" id="dialogSuccess">
+    <property name="name">calendarSide</property>
     <property name="can-focus">False</property>
     <property name="resizable">False</property>
     <property name="default-width">430</property>
@@ -52,6 +53,7 @@
         </child>
         <child>
           <object class="GtkFixed">
+            <property name="name">calendarSide</property>
             <property name="width-request">32</property>
             <property name="height-request">74</property>
             <property name="visible">True</property>
@@ -94,6 +96,7 @@ Thanks for using app</property>
     </child>
   </object>
   <object class="GtkWindow" id="window_sig">
+    <property name="name">calendarSide</property>
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Signup window</property>
     <property name="default-width">500</property>
@@ -101,6 +104,7 @@ Thanks for using app</property>
     <signal name="destroy" handler="on_window_sign_destroy" swapped="no"/>
     <child>
       <object class="GtkFixed">
+        <property name="name">calendarSi9de</property>
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
@@ -215,6 +219,7 @@ Thanks for using app</property>
                 <property name="can-focus">False</property>
                 <child>
                   <object class="GtkImage">
+                    <property name="name">cc</property>
                     <property name="width-request">50</property>
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
@@ -271,6 +276,7 @@ Thanks for using app</property>
                 <property name="can-focus">False</property>
                 <child>
                   <object class="GtkImage">
+                    <property name="name">cc</property>
                     <property name="width-request">50</property>
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
@@ -327,6 +333,7 @@ Thanks for using app</property>
                 <property name="can-focus">False</property>
                 <child>
                   <object class="GtkImage">
+                    <property name="name">cc</property>
                     <property name="width-request">50</property>
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
@@ -368,6 +375,7 @@ Thanks for using app</property>
                     <signal name="released" handler="on_btnViewPassSignup_released" swapped="no"/>
                     <child>
                       <object class="GtkImage">
+                        <property name="name">cc</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixbuf">view.png</property>
@@ -409,6 +417,7 @@ Thanks for using app</property>
                 <property name="can-focus">False</property>
                 <child>
                   <object class="GtkImage">
+                    <property name="name">cc</property>
                     <property name="width-request">50</property>
                     <property name="height-request">20</property>
                     <property name="visible">True</property>
@@ -450,6 +459,7 @@ Thanks for using app</property>
                     <signal name="released" handler="on_btnViewConfSignup_released" swapped="no"/>
                     <child>
                       <object class="GtkImage">
+                        <property name="name">cc</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="pixbuf">view.png</property>

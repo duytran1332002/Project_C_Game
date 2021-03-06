@@ -64,6 +64,10 @@
                         <property name="title" translatable="yes">Username</property>
                         <child>
                           <object class="GtkCellRendererText" id="renderUsername"/>
+                          <attributes>
+                            <attribute name="wrap-width">0</attribute>
+                            <attribute name="max-width-chars">0</attribute>
+                          </attributes>
                         </child>
                       </object>
                     </child>
