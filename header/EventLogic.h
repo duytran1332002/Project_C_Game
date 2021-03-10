@@ -115,11 +115,11 @@ void setEvent(int day, int month, int year, const char* eventTitle, char* eventC
         char *tokens[100];
         char *token;
 
-        token = strtok(tempInfo1, "-");
+        token = strtok(tempInfo1, "`");
 		while (token != NULL) {
             tokens[i] = token;
             i++;
-            token = strtok(NULL, "-");
+            token = strtok(NULL, "`");
         }
 		int numDate[3];
 		char *dateTokens[3];
@@ -136,11 +136,11 @@ void setEvent(int day, int month, int year, const char* eventTitle, char* eventC
 			flag = 1;
 			char buf[10];
 			itoa(featureID, buf, 10);
-			strcat(fetchedInformation[numOfLines], "-");
+			strcat(fetchedInformation[numOfLines], "`");
 			strcat(fetchedInformation[numOfLines], buf);
-			strcat(fetchedInformation[numOfLines], "-");
+			strcat(fetchedInformation[numOfLines], "`");
 			strcat(fetchedInformation[numOfLines], eventTitle);
-			strcat(fetchedInformation[numOfLines], "-");
+			strcat(fetchedInformation[numOfLines], "`");
 			strcat(fetchedInformation[numOfLines], eventContent);
 		}
 	}
@@ -162,12 +162,12 @@ void setEvent(int day, int month, int year, const char* eventTitle, char* eventC
 		strcat(inputContent, "/");
 		itoa(year, buf, 10);
 		strcat(inputContent, buf);
-		strcat(inputContent, "-");
+		strcat(inputContent, "`");
 		itoa(featureID, buf, 10);
 		strcat(inputContent, buf);
-		strcat(inputContent, "-");
+		strcat(inputContent, "`");
 		strcat(inputContent, eventTitle);
-		strcat(inputContent, "-");
+		strcat(inputContent, "`");
 		strcat(inputContent, eventContent);
 		fptr = fopen(fileName, "a");
 		fprintf(fptr, "%s\n", inputContent);
@@ -201,11 +201,11 @@ char* getTaskbyDate(int userID, int day, int month, int year)
         char *tokens[100];
         char *token;
 
-        token = strtok(tempInfo1, "-");
+        token = strtok(tempInfo1, "`");
 		while (token != NULL) {
             tokens[i] = token;
             i++;
-            token = strtok(NULL, "-");
+            token = strtok(NULL, "`");
         }
 
 		int numDate[3];
@@ -250,11 +250,11 @@ void clearEvent(int day, int month, int year, int eventID, int userID)
         char *tokens[100];
         char *token;
 
-        token = strtok(tempInfo, "-");
+        token = strtok(tempInfo, "`");
 		while (token != NULL) {
             tokens[i] = token;
             i++;
-            token = strtok(NULL, "-");
+            token = strtok(NULL, "`");
         }
 
 		int numDate[3];
@@ -279,7 +279,7 @@ void clearEvent(int day, int month, int year, int eventID, int userID)
 
 				for (int tokenIndex = 1; tokenIndex < i; tokenIndex++)
 					if (tokenIndex != (eventID) && tokenIndex != (eventID + 1) && tokenIndex != (eventID + 2)) {
-					strcat(fetchedInformation[numOfLines], "-");
+					strcat(fetchedInformation[numOfLines], "`");
 					char* tempStr = tokens[tokenIndex];
 					strcat(fetchedInformation[numOfLines], tempStr);
 				}

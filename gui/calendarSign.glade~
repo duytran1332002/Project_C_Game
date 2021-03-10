@@ -179,8 +179,8 @@ Thanks for using app</property>
             </attributes>
           </object>
           <packing>
-            <property name="x">61</property>
-            <property name="y">629</property>
+            <property name="x">95</property>
+            <property name="y">627</property>
           </packing>
         </child>
         <child>
@@ -190,7 +190,6 @@ Thanks for using app</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <property name="relief">none</property>
             <signal name="clicked" handler="onClicked_login_change" swapped="no"/>
             <child>
               <object class="GtkLabel">
@@ -509,7 +508,7 @@ Thanks for using app</property>
           </object>
           <packing>
             <property name="x">413</property>
-            <property name="y">503</property>
+            <property name="y">499</property>
           </packing>
         </child>
       </object>

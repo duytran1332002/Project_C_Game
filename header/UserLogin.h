@@ -518,7 +518,7 @@ bool isValidUsername(char *username) {
 	int leng = strlen(username);
 
 	//Check range
-	if (leng > 20 || leng < 5)
+	if (leng > 10 || leng < 5)
     	return false;
 
     //Check special character	

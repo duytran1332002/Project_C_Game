@@ -13,6 +13,10 @@ static int curImportant, curReminder, curWork, curEvent;
 static int curReviewWindow;
 int currentMonth;
 int currentYear;
+int checkOpenLogin = 0;
+int checkOpenSign = 0;
+int checkOpenUpDate = 0;
+int checkOpenAdmin = 0;
 char currUserName[128];
 char manageUsername[128];
 //Calendar
@@ -168,6 +172,7 @@ static void load_css_dark_mode(void)
 static void showEventReview(int currentDay) {
     curReminderID = 0, curImportantID = 0, curWorkID = 0;
     curReviewWindow = currentDay;
+
     gtk_label_set_text(GTK_LABEL(lbNumberReminder), "");
     gtk_label_set_text(GTK_LABEL(lbNumberImportant), "");
     gtk_label_set_text(GTK_LABEL(lbNumberWork), "");
@@ -200,13 +205,13 @@ static void showEventReview(int currentDay) {
     if (currentDay != 0 && user.id > 0) {
         char* strTask1 = getTaskbyDate(user.id, currentDay, currentMonth, currentYear);
         int i = 0;
-        char *tokens[40];
+        char *tokens[100];
         char *token;
-        token = strtok(strTask1, "-");
+        token = strtok(strTask1, "`");
 		while (token != NULL) {
             tokens[i] = token;
             i++;
-            token = strtok(NULL, "-");
+            token = strtok(NULL, "`");
         }
         int importantList[30], reminderList[30], workList[30];
         int maxImportant = 0, maxReminder = 0, maxWork = 0;
@@ -373,13 +378,13 @@ static void makeCalendar()
             if (user.id > 0) {
                 char* strTask1 = getTaskbyDate(user.id, numDay, currentMonth, currentYear);
                 int ii = 0;
-                char *tokens[40];
+                char *tokens[100];
                 char *token;
-                token = strtok(strTask1, "-");
+                token = strtok(strTask1, "`");
                 while (token != NULL) {
                     tokens[ii] = token;
                     ii++;
-                    token = strtok(NULL, "-");
+                    token = strtok(NULL, "`");
                 }
                 int maxImportant = 0, maxReminder = 0, maxWork = 0;
                 for (int tokenIndex = 1; tokenIndex < ii; tokenIndex+=3) {
@@ -437,13 +442,13 @@ static void makeCalendar()
         if (user.id > 0) {
             char* strTask1 = getTaskbyDate(user.id, numDay, currentMonth, currentYear);
             int ii = 0;
-            char *tokens[40];
+            char *tokens[100];
             char *token;
-            token = strtok(strTask1, "-");
+            token = strtok(strTask1, "`");
             while (token != NULL) {
                 tokens[ii] = token;
                 ii++;
-                token = strtok(NULL, "-");
+                token = strtok(NULL, "`");
             }
             int maxImportant = 0, maxReminder = 0, maxWork = 0;
             for (int tokenIndex = 1; tokenIndex < ii; tokenIndex+=3) {
@@ -477,6 +482,7 @@ static void makeCalendar()
 }
 void showCalendarWindow(int argc, char *argv[])
 {
+
     GtkBuilder *builderCalendar;
 
     gtk_init(&argc, &argv);
@@ -523,7 +529,7 @@ void showCalendarWindow(int argc, char *argv[])
 
     // set text username label
     if(user.id != 0){
-        g_print("%s", currUserName);
+        //g_print("%s", currUserName);
         gtk_label_set_text(GTK_LABEL(lbUserName), currUserName);
     }
 
@@ -642,8 +648,12 @@ void showLoginWindow(int argc, char *argv[])
     gtk_builder_connect_signals(builderLogin, NULL);
 
     g_object_unref(builderLogin);
-
-    gtk_widget_show(windowLogin);
+    if(checkOpenLogin == 0)
+    {
+    	checkOpenLogin = 1;
+    	gtk_widget_show(windowLogin);
+    	
+    }
     gtk_main();
 }
 void showSignupWindow(int argc, char *argv[])
@@ -672,7 +682,12 @@ void showSignupWindow(int argc, char *argv[])
 
     g_object_unref(builderSign);
 
-    gtk_widget_show(windowSign);
+    if(checkOpenSign == 0){
+    	checkOpenSign = 1;
+    	gtk_widget_show(windowSign);
+    	
+    }
+    
     gtk_main();
 }
 
@@ -694,7 +709,11 @@ void showLoginAdminWindow(int argc, char *argv[])
 
     g_object_unref(builderLoginAdmin);
 
-    gtk_widget_show(windowLoginAdmin);
+    if(checkOpenAdmin == 0){
+    	checkOpenAdmin = 1;
+    	gtk_widget_show(windowLoginAdmin);
+    }
+    
     gtk_main();
 }
 void showManageUserWindow(int argc, char *argv[])
@@ -754,6 +773,7 @@ void showManageUserWindow(int argc, char *argv[])
 
 void showUpdateWindow(int argc, char *argv[])
 {
+
     GtkBuilder *builderUpdate;
 
     gtk_init(&argc, &argv);
@@ -789,8 +809,13 @@ void showUpdateWindow(int argc, char *argv[])
     gtk_builder_connect_signals(builderUpdate, NULL);
 
     g_object_unref(builderUpdate);
-
-    gtk_widget_show(windowUpdate);
+    if(checkOpenUpDate == 0)
+    {
+    	checkOpenUpDate = 1;
+    	gtk_widget_show(windowUpdate);
+    	
+    }
+    
     gtk_main();
 }
 int main(int argc, char *argv[])
@@ -814,11 +839,31 @@ G_MODULE_EXPORT void on_createEventBuf_changed()
 G_MODULE_EXPORT void on_btnShowNoti_clicked()
 {
 	time_t t = time(NULL);
-  	struct tm tm = *localtime(&t);
-  	gtk_popover_popup(GTK_POPOVER(reviewEvent));
+    struct tm tm = *localtime(&t);
+    currentYear = tm.tm_year + 1900;
+    char strYear[4];
+    sprintf(strYear, "%d", currentYear);
+    currentMonth = tm.tm_mon + 1;
+    gtk_label_set_text(GTK_LABEL(yearLbl), strYear);
+    gtk_label_set_text(GTK_LABEL(yearLblSmall), strYear);
+    gtk_label_set_text(GTK_LABEL(monthLblSmall), (char*)months[tm.tm_mon]);
+
+
+    char strd[] = "", strNumD[5];
+    strcat(strd, (char*)months[tm.tm_mon]);
+    strcat(strd, strNumD);
+    sprintf(strNumD, "%d", tm.tm_mday);
+    strcat(strd, ", ");
+    strcat(strd, strNumD);
+    gtk_label_set_text(GTK_LABEL(lbCurrentDate), strd);
+
+    makeCalendar();
+	
+	gtk_popover_popup(GTK_POPOVER(reviewEvent));
 	showEventReview(tm.tm_mday);  
 	gtk_widget_destroy(todayEvent);
 
+    
 } 
 G_MODULE_EXPORT void on_btnCancelNoti_clicked()
 {
@@ -838,19 +883,29 @@ G_MODULE_EXPORT void on_CalendarManageUserWindow_destroy()
 G_MODULE_EXPORT void on_downYear_clicked(int argc, char *argv[])
 {
     currentYear--;
-    char strYear[10];
+    char strYear[4];
     sprintf(strYear, "%d", currentYear);
     gtk_label_set_text(GTK_LABEL(yearLbl), strYear);
     gtk_label_set_text(GTK_LABEL(yearLblSmall), strYear);
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    char strNumD[10];
+    sprintf(strNumD, "%s", (char*)months[currentMonth - 1]);
+    gtk_label_set_text(GTK_LABEL(lbCurrentDate), strNumD);
     makeCalendar();
 }
 G_MODULE_EXPORT void on_upYear_clicked(int argc, char *argv[])
 {
     currentYear++;
-    char strYear[10];
+    char strYear[4];
     sprintf(strYear, "%d", currentYear);
     gtk_label_set_text(GTK_LABEL(yearLbl), strYear);
     gtk_label_set_text(GTK_LABEL(yearLblSmall), strYear);
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    char strNumD[10];
+    sprintf(strNumD, "%s", (char*)months[currentMonth - 1]);
+    gtk_label_set_text(GTK_LABEL(lbCurrentDate), strNumD);
     makeCalendar();
 }
 G_MODULE_EXPORT void on_downMonth_clicked(int argc, char *argv[])
@@ -858,7 +913,7 @@ G_MODULE_EXPORT void on_downMonth_clicked(int argc, char *argv[])
     if (currentMonth == 1) {
         currentMonth = 12;
         currentYear--;
-        char strYear[10];
+        char strYear[4];
         sprintf(strYear, "%d", currentYear);
         gtk_label_set_text(GTK_LABEL(yearLbl), strYear);
         gtk_label_set_text(GTK_LABEL(yearLblSmall), strYear);
@@ -868,13 +923,9 @@ G_MODULE_EXPORT void on_downMonth_clicked(int argc, char *argv[])
     }
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    char strd[] = "", strNumD[10];
-    strcat(strd, (char*)months[currentMonth - 1]);
-    strcat(strd, strNumD);
-    sprintf(strNumD, "%d", tm.tm_mday);
-    strcat(strd, ", ");
-    strcat(strd, strNumD);
-    gtk_label_set_text(GTK_LABEL(lbCurrentDate), strd);
+    char strNumD[10];
+    sprintf(strNumD, "%s", (char*)months[currentMonth - 1]);
+    gtk_label_set_text(GTK_LABEL(lbCurrentDate), strNumD);
     gtk_label_set_text(GTK_LABEL(monthLblSmall), (char*)months[currentMonth - 1]);
     makeCalendar();
 }
@@ -883,7 +934,7 @@ G_MODULE_EXPORT void on_upMonth_clicked(int argc, char *argv[])
     if (currentMonth == 12) {
         currentMonth = 1;
         currentYear++;
-        char strYear[10];
+        char strYear[4];
         sprintf(strYear, "%d", currentYear);
         gtk_label_set_text(GTK_LABEL(yearLbl), strYear);
         gtk_label_set_text(GTK_LABEL(yearLblSmall), strYear);
@@ -893,13 +944,9 @@ G_MODULE_EXPORT void on_upMonth_clicked(int argc, char *argv[])
     }
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    char strd[] = "", strNumD[10];
-    strcat(strd, (char*)months[currentMonth - 1]);
-    strcat(strd, strNumD);
-    sprintf(strNumD, "%d", tm.tm_mday);
-    strcat(strd, ", ");
-    strcat(strd, strNumD);
-    gtk_label_set_text(GTK_LABEL(lbCurrentDate), strd);
+    char strNumD[10];
+    sprintf(strNumD, "%s", (char*)months[currentMonth - 1]);
+    gtk_label_set_text(GTK_LABEL(lbCurrentDate), strNumD);
     gtk_label_set_text(GTK_LABEL(monthLblSmall), (char*)months[currentMonth - 1]);
     makeCalendar();
 }
@@ -940,9 +987,27 @@ G_MODULE_EXPORT void on_darkModeBtn_state_set(int argc, char *argv[]) {
 }
 //EVENT WINDOW
 G_MODULE_EXPORT void on_showCurEvent_clicked() {
-    time_t t = time(NULL);
+	time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    //gtk_popover_popup(GTK_POPOVER(reviewEvent));
+    currentYear = tm.tm_year + 1900;
+    char strYear[4];
+    sprintf(strYear, "%d", currentYear);
+    currentMonth = tm.tm_mon + 1;
+    gtk_label_set_text(GTK_LABEL(yearLbl), strYear);
+    gtk_label_set_text(GTK_LABEL(yearLblSmall), strYear);
+    gtk_label_set_text(GTK_LABEL(monthLblSmall), (char*)months[tm.tm_mon]);
+
+
+    char strd[] = "", strNumD[5];
+    strcat(strd, (char*)months[tm.tm_mon]);
+    strcat(strd, strNumD);
+    sprintf(strNumD, "%d", tm.tm_mday);
+    strcat(strd, ", ");
+    strcat(strd, strNumD);
+    gtk_label_set_text(GTK_LABEL(lbCurrentDate), strd);
+
+    makeCalendar();	
+    
     showEventReview(tm.tm_mday);
 }
 G_MODULE_EXPORT void popdown() {
@@ -998,12 +1063,22 @@ G_MODULE_EXPORT void on_createBtn_clicked() {
         createEventBuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(eventContentInput));
         gtk_text_buffer_get_bounds(createEventBuf, &start, &end);
         char *eventContent = gtk_text_buffer_get_text(createEventBuf, &start, &end, FALSE);
+        int checkValid = 1;   // 0 if there is invalid character
         for (int i = 0; i < strlen(eventContent); i++) {
+        	if (eventContent[i] == '~' || eventContent[i] == '`') {
+            	checkValid = 0;
+			}
             if (eventContent[i] == '\n') {
                 eventContent[i] = '~';
             }
         }
-        if (strlen(eventContent) != 0 && strlen(eventTitle) != 0 && strlen(eventContent) < 40) {
+        for (int i = 0; i < strlen(eventTitle); i++) {
+        	if (eventTitle[i] == '`' || eventTitle[i] == '~') {
+        		checkValid = 0;
+			}
+		}
+        
+        if (strlen(eventContent) != 0 && strlen(eventTitle) != 0 && strlen(eventContent) < 40 && checkValid == 1) {
             gtk_label_set_text(GTK_LABEL(lbValidateEvent), "");
             int eventFeature = 0;
             if (reminderCheck == 1) {
@@ -1022,7 +1097,9 @@ G_MODULE_EXPORT void on_createBtn_clicked() {
             makeCalendar();
 
         } else {
-        	if (strlen(eventContent) > 40)
+        	if (checkValid == 0) {
+        		gtk_label_set_text(GTK_LABEL(lbValidateEvent), "Input can't contain '~' and '`'");
+			} else if (strlen(eventContent) > 40)
         		gtk_label_set_text(GTK_LABEL(lbValidateEvent), "Size of desciption < 40");
         	else gtk_label_set_text(GTK_LABEL(lbValidateEvent), "Fill in both title and description");
         }	
@@ -1451,8 +1528,21 @@ G_MODULE_EXPORT void on_dateBtn35_clicked() {
 // call to change to Sign in window
 G_MODULE_EXPORT void onClicked_sign_change(int argc, char *argv[])
 {
-    gtk_widget_destroy(GTK_WIDGET(windowLogin));
+	gtk_widget_destroy(GTK_WIDGET(windowLogin));
+    if(checkOpenUpDate == 1 )
+    {
+    	gtk_widget_destroy(GTK_WIDGET(windowUpdate));
+    }
+    if(checkOpenAdmin == 1 )
+    {
+    	gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
+    }
+    if(checkOpenSign == 1)
+    {
+    	gtk_widget_destroy(GTK_WIDGET(windowSign));
+    }
     showSignupWindow(argc, argv);
+    
 }
 
 // called when click login
@@ -1472,7 +1562,7 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
     if (!isValidUsernameTxt)
     {
         //Do something if username is invalid
-        gtk_label_set_text(GTK_LABEL(lbUserCorLogin), "*[a-z], [A-Z], number, 5 < size < 20");
+        gtk_label_set_text(GTK_LABEL(lbUserCorLogin), "*[a-z], [A-Z], number, 5 < size < 10");
 
     }
     else if (!isValidPasswordTxt)
@@ -1501,6 +1591,7 @@ G_MODULE_EXPORT void onClicked_Login(int argc, char *argv[])
             gtk_widget_destroy(GTK_WIDGET(windowLogin));
             gtk_widget_destroy(GTK_WIDGET(windowCalendar));
             todayEventState = 0;
+            checkOpenLogin = 0;
             showCalendarWindow(argc, argv);
 
 
@@ -1528,14 +1619,26 @@ G_MODULE_EXPORT void on_btnViewPassLogin_released()
 G_MODULE_EXPORT void on_window_login_destroy()
 {
     gtk_main_quit();
+    checkOpenLogin = 0;
 }
 
 // SIGNUP WINDOW
 // call to change to Log in window
 G_MODULE_EXPORT void onClicked_login_change(int argc, char *argv[])
 {
-    gtk_widget_destroy(GTK_WIDGET(windowSign));
+	gtk_widget_destroy(GTK_WIDGET(windowSign));
+    if(checkOpenUpDate == 1)
+    {
+    	gtk_widget_destroy(GTK_WIDGET(windowUpdate));
+    }
+    if(checkOpenAdmin == 1){
+    	gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
+    }
+    if(checkOpenLogin == 1){
+    	gtk_widget_destroy(GTK_WIDGET(windowLogin));
+    }
     showLoginWindow(argc, argv);
+    
 }
 
 // called when click sign up
@@ -1566,7 +1669,7 @@ G_MODULE_EXPORT void onClicked_Signup()
     else if (!isValidUsernameTxt)
     {
         //Do something if username is wrong
-        gtk_label_set_text(GTK_LABEL(lbUserCor), "*[a-z], [A-Z], number, 5 < size < 20");
+        gtk_label_set_text(GTK_LABEL(lbUserCor), "*[a-z], [A-Z], number, 5 < size < 10");
     }
     else if (isUserNameExist)
     {
@@ -1582,7 +1685,7 @@ G_MODULE_EXPORT void onClicked_Signup()
         if (strcmp(passTxtSign, confPassTxtSign) != 0)
         {
             //Do something if password doesn't match
-            gtk_label_set_text(GTK_LABEL(lbConfCor), "*not same with confirm password");
+            gtk_label_set_text(GTK_LABEL(lbConfCor), "*the password dose not match");
         }
         else {
             user.name = nameTxtSign;
@@ -1592,6 +1695,7 @@ G_MODULE_EXPORT void onClicked_Signup()
             if (registerNewAccount(user) == 1){
                 //Do something if register successfully
                 gtk_widget_destroy(GTK_WIDGET(windowSign));
+                checkOpenSign = 0;
                 gtk_widget_show(dialogSuccess);
             }
         }
@@ -1636,16 +1740,33 @@ G_MODULE_EXPORT void on_btnViewConfSignup_released()
 G_MODULE_EXPORT void on_window_sign_destroy()
 {
     gtk_main_quit();
+    checkOpenSign = 0;
 }
 // ADMIN WINDOW
 // called for admin window
 G_MODULE_EXPORT void onClicked_Admin(int argc, char *argv[])
 {
+	if(checkOpenUpDate == 1){
+		gtk_widget_destroy(GTK_WIDGET(windowUpdate));
+	}
+	if(checkOpenSign == 1)
+	{
+		gtk_widget_destroy(GTK_WIDGET(windowSign));
+	}
+	if(checkOpenLogin == 1)
+	{
+		gtk_widget_destroy(GTK_WIDGET(windowLogin));
+	}
+	if(checkOpenAdmin == 1)
+	{
+		gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
+	}
     showLoginAdminWindow(argc, argv);
 }
 G_MODULE_EXPORT void on_window_admin_destroy()
 {
 	gtk_main_quit();
+	checkOpenAdmin = 0;
 }
 G_MODULE_EXPORT void onClicked_Login_Admin(int argc, char *argv[]){
 	// variable to save GTK Entry
@@ -1662,7 +1783,7 @@ G_MODULE_EXPORT void onClicked_Login_Admin(int argc, char *argv[]){
     if (!isValidUsernameTxt)
     {
         //Do something if username is invalid
-        gtk_label_set_text(GTK_LABEL(lbUserCorAdmin), "*[a-z], [A-Z], number, 5 < size < 20");
+        gtk_label_set_text(GTK_LABEL(lbUserCorAdmin), "*[a-z], [A-Z], number, 5 < size < 10");
 
     }
     else if (!isValidPasswordTxt)
@@ -1681,6 +1802,7 @@ G_MODULE_EXPORT void onClicked_Login_Admin(int argc, char *argv[]){
         } else {
             //Do something if there is such account and right password
             gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
+            checkOpenAdmin = 0;
             showManageUserWindow(argc, argv);
         }
     }
@@ -1720,6 +1842,19 @@ G_MODULE_EXPORT void on_btnUpdate_clicked(int argc, char *argv[])
 {
     if(user.id != 0)
     {
+    	if(checkOpenSign == 1){
+    		gtk_widget_destroy(GTK_WIDGET(windowSign));
+    	}
+    	if(checkOpenLogin == 1){
+    		gtk_widget_destroy(GTK_WIDGET(windowLogin));
+    	}
+    	if(checkOpenAdmin == 1){
+    		gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
+    	}
+    	if(checkOpenUpDate == 1)
+    	{
+    		gtk_widget_destroy(GTK_WIDGET(windowUpdate));
+    	}
         showUpdateWindow(argc, argv);
     }
 }
@@ -1746,7 +1881,7 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
     if (!isValidUsernameTxt)
     {
         //Do something if username is wrong
-        gtk_label_set_text(GTK_LABEL(lbUserCorUpdate), "*[a-z], [A-Z], number, 5 < size < 20");
+        gtk_label_set_text(GTK_LABEL(lbUserCorUpdate), "*[a-z], [A-Z], number, 5 < size < 10");
     }
     else if (isUserNameExist == true && strcmp(userTxtUpdate, userUpdate.username) != 0)
     {
@@ -1762,7 +1897,7 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
         if (strcmp(passTxtUpdate, confPassTxtUpdate) != 0)
         {
             //Do something if password doesn't match
-            gtk_label_set_text(GTK_LABEL(lbConfCorUpdate), "*not same with confirm password");
+            gtk_label_set_text(GTK_LABEL(lbConfCorUpdate), "*the password doe not match");
         }
         else {
             updateUsername(userUpdate.id, userTxtUpdate);
@@ -1772,6 +1907,7 @@ G_MODULE_EXPORT void on_btnGetUpdate_clicked(int argc, char *argv[])
             User userUpdateAgain = {};
             getUserByID(user.id, &userUpdateAgain);
             sprintf(currUserName, "%s", userUpdateAgain.username);
+            checkOpenUpDate = 0;
             showCalendarWindow(argc, argv);
 
 
@@ -1793,6 +1929,7 @@ G_MODULE_EXPORT void on_confPassEntryUpdate_changed()
 G_MODULE_EXPORT void on_window_update_destroy()
 {
     gtk_main_quit();
+    checkOpenUpDate = 0;
 }
 G_MODULE_EXPORT void on_btnViewPassUpdate_pressed()
 {
@@ -1863,6 +2000,20 @@ G_MODULE_EXPORT void on_btnSignout_clicked(int argc, char *argv[])
 		return;
 	}else
 	{
+		if(checkOpenUpDate == 1){
+			gtk_widget_destroy(GTK_WIDGET(windowUpdate));
+		}
+
+		if(checkOpenLogin == 1){
+			gtk_widget_destroy(GTK_WIDGET(windowLogin));
+		}
+
+		if(checkOpenAdmin == 1){
+			gtk_widget_destroy(GTK_WIDGET(windowLoginAdmin));
+		}
+		if(checkOpenSign ==1){
+			gtk_widget_destroy(GTK_WIDGET(windowSign));
+		}
 		user.id = 0;
     	sprintf(currUserName, "%s", "Username");
     	saveIDPointer = fopen(SAVE_ID, "w");
