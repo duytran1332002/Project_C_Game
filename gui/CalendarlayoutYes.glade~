@@ -4035,7 +4035,7 @@ Please check!!!</property>
                                         <child>
                                           <object class="GtkLabel" id="lbWork2">
                                             <property name="width-request">21</property>
-                                            <property name="height-request">48</property>
+                                            <property name="height-request">41</property>
                                             <property name="visible">True</property>
                                             <property name="can-focus">False</property>
                                             <property name="label" translatable="yes">.</property>
